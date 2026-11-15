@@ -7,7 +7,9 @@ REMOTE=$(git remote get-url origin)
 OWNER=$(echo "$REMOTE" | sed -E 's#.*github.com[:/]([^/]+)/.*#\1#')
 REPO=$(basename -s .git "$REMOTE")
 BASE_PATH="$REPO" SITE_URL="https://$OWNER.github.io" npx astro build
-rm -rf .deploy && cp -r dist .deploy
+OUT=dist; [ -d dist/client ] && OUT=dist/client; [ -d "dist/client/$REPO" ] && OUT="dist/client/$REPO"
+rm -rf .deploy && cp -r "$OUT" .deploy
+touch .deploy/.nojekyll
 cd .deploy
 git init -q -b gh-pages
 git add -A
