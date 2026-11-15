@@ -1,0 +1,152 @@
+---
+import { WEB3FORMS_KEY, FORM_SUBJECT, FORM_FROM } from '../data/form';
+---
+<form id="poptavka" class="inquiry-form" action="#" method="post" data-key={WEB3FORMS_KEY} data-subject={FORM_SUBJECT} data-from={FORM_FROM}>
+  <div class="fields" data-stagger>
+    <div class="field">
+      <label for="f-typ">Typ akce</label>
+      <input type="text" id="f-typ" name="typ_akce" maxlength="120" placeholder="Konference, kongres, seminář…" />
+    </div>
+    <div class="field">
+      <label for="f-tema">Téma / název akce</label>
+      <input type="text" id="f-tema" name="tema" maxlength="160" placeholder="Např. konference dětské psychoterapie" />
+    </div>
+    <div class="field">
+      <label for="f-pocet">Předpokládaný počet účastníků</label>
+      <input type="text" id="f-pocet" name="pocet_ucastniku" maxlength="40" inputmode="numeric" placeholder="Např. 250" />
+    </div>
+    <div class="field">
+      <label for="f-termin">Preferovaný termín</label>
+      <input type="text" id="f-termin" name="termin" maxlength="60" placeholder="Měsíc a rok nebo konkrétní datum" />
+    </div>
+    <div class="field">
+      <label for="f-misto">Místo konání</label>
+      <input type="text" id="f-misto" name="misto" maxlength="160" placeholder="Město, případně hotel nebo sál" />
+    </div>
+    <div class="field">
+      <label for="f-org">Organizace / instituce</label>
+      <input type="text" id="f-org" name="organizace" maxlength="160" autocomplete="organization" placeholder="Název organizace" />
+    </div>
+    <div class="field">
+      <label for="f-osoba">Kontaktní osoba *</label>
+      <input type="text" id="f-osoba" name="kontaktni_osoba" required maxlength="120" autocomplete="name" placeholder="Jméno a příjmení" />
+    </div>
+    <div class="field">
+      <label for="f-email">E-mail *</label>
+      <input type="email" id="f-email" name="email" required maxlength="160" autocomplete="email" placeholder="vas@email.cz" />
+    </div>
+    <div class="field">
+      <label for="f-tel">Telefon *</label>
+      <input type="tel" id="f-tel" name="telefon" required maxlength="40" inputmode="tel" autocomplete="tel" placeholder="+420 000 000 000" />
+    </div>
+    <div class="field wide">
+      <label for="f-detail">Detail poptávky</label>
+      <textarea id="f-detail" name="detail" maxlength="3000" placeholder="Bližší informace o akci – program, ubytování, technické zázemí…"></textarea>
+    </div>
+    <!-- ochrana proti spamu (Web3Forms) – pole vidí jen roboti -->
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  </div>
+  <div class="form-foot">
+    <p class="form-note">Pole označená * jsou povinná. Údaje použijeme jen k odpovědi na vaši poptávku.</p>
+    <button type="submit" class="form-submit">Odeslat poptávku</button>
+  </div>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form.inquiry-form').forEach((form) => {
+    form.setAttribute('novalidate', '');
+    const status = form.querySelector<HTMLElement>('.form-status');
+    const btn = form.querySelector<HTMLButtonElement>('.form-submit');
+    const say = (msg: string) => { if (status) status.textContent = msg; };
+
+    // vlastní validace: chybné povinné pole zčervená
+    const validate = () => {
+      let bad: HTMLInputElement | HTMLTextAreaElement | null = null;
+      form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.field input, .field textarea').forEach((el) => {
+        const ok = el.checkValidity();
+        el.closest('.field')?.classList.toggle('field-invalid', !ok);
+        if (!ok && !bad) bad = el;
+      });
+      return bad as HTMLInputElement | HTMLTextAreaElement | null;
+    };
+    form.addEventListener('input', (e) => {
+      const t = e.target as HTMLInputElement;
+      const field = t.closest?.('.field');
+      if (field?.classList.contains('field-invalid') && t.checkValidity()) field.classList.remove('field-invalid');
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const bad = validate();
+      if (bad) { bad.focus(); say('Vyplňte prosím povinná pole.'); return; }
+      const key = form.dataset.key;
+      if (!key) { say('Formulář zatím není napojený na e-mail. Napište nám prosím na info@evera.cz.'); return; }
+
+      const orig = btn?.textContent ?? '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Odesílám…'; }
+      say('');
+      const data = new FormData(form);
+      data.append('access_key', key);
+      data.append('subject', form.dataset.subject || 'Nová poptávka');
+      data.append('from_name', form.dataset.from || 'Web');
+      const email = form.querySelector<HTMLInputElement>('#f-email')?.value;
+      if (email) data.append('replyto', email);
+
+      fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: data })
+        .then((r) => r.json())
+        .then((res) => {
+          if (res && res.success) { window.location.href = import.meta.env.BASE_URL + 'odeslano/'; return; }
+          throw new Error('fail');
+        })
+        .catch(() => {
+          if (btn) { btn.disabled = false; btn.textContent = orig; }
+          say('Odeslání se nezdařilo. Zkuste to prosím znovu, nebo nám napište na info@evera.cz.');
+        });
+    });
+  });
+</script>
+
+<style>
+  .inquiry-form { margin-top: clamp(2rem, 4vw, 3rem); background: #a2c8c7; padding: clamp(1.5rem, 4vw, 3.5rem); }
+  .fields { display: grid; grid-template-columns: 1fr; gap: 1.75rem 2rem; }
+  @media (min-width: 640px) { .fields { grid-template-columns: 1fr 1fr; } .field.wide { grid-column: 1 / -1; } }
+  @media (min-width: 1100px) { .fields { grid-template-columns: 1fr 1fr 1fr; } }
+  @media (max-width: 639px) { .form-submit { width: 100%; } }
+  .field { position: relative; display: flex; flex-direction: column; }
+  .field label { font-size: var(--fs-sm); color: var(--ink); margin-bottom: 0.5rem; }
+  .field input, .field textarea {
+    width: 100%; font: inherit; font-size: var(--fs-base); color: var(--ink);
+    background: rgba(255, 255, 255, 0.55); border: 0; border-radius: 0.25rem;
+    padding: 0.9rem 1.1rem; transition: background 0.4s var(--ease);
+  }
+  .field input { height: 3.5rem; }
+  .field textarea { min-height: 9.5rem; resize: vertical; }
+  .field input::placeholder, .field textarea::placeholder { color: transparent; transition: color 0.3s; }
+  .field:hover input::placeholder, .field input:focus::placeholder,
+  .field:hover textarea::placeholder, .field textarea:focus::placeholder { color: rgba(0, 0, 0, 0.38); }
+  .field input:hover, .field textarea:hover { background: rgba(255, 255, 255, 0.75); }
+  .field input:focus, .field textarea:focus { outline: none; background: #fff; }
+  /* akcentní linka pod polem, která se při hoveru/focusu vytře zprava */
+  .field::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: right center; transition: transform 0.5s var(--ease); pointer-events: none;
+  }
+  .field:hover::after, .field:focus-within::after { transform: scaleX(1); transform-origin: left center; }
+  .field.field-invalid input, .field.field-invalid textarea { background: rgba(214, 48, 49, 0.08); }
+  .field.field-invalid::after { background: #d63031; transform: scaleX(1); }
+  .field.field-invalid label { color: #c0392b; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  .form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: 2rem; }
+  .form-note { margin: 0; font-size: var(--fs-sm); color: var(--ink); }
+  .form-submit {
+    font: inherit; font-weight: 600; font-size: var(--fs-sm); cursor: pointer;
+    padding: 1.05rem 2.75rem; border-radius: 0.25rem;
+    border: 1px solid var(--ink); background: transparent; color: var(--ink);
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), transform 0.5s var(--ease);
+  }
+  .form-submit:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .form-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+  .form-status { margin: 1rem 0 0; font-size: var(--fs-sm); color: #c0392b; min-height: 1.2em; }
+</style>

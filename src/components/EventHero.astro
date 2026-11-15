@@ -1,0 +1,44 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  when: string;
+  where: string;
+  image: string;
+  imageAlt?: string;
+}
+const { eyebrow, title, subtitle, when, where, image, imageAlt = '' } = Astro.props;
+---
+<section class="ehero">
+  <div class="wrap">
+    <div class="ehero-text hero-in">
+      <span class="kicker">{eyebrow}</span>
+      <h1>{title}</h1>
+      {subtitle && <p class="lede">{subtitle}</p>}
+      <dl class="facts">
+        <div><dt>Kdy</dt><dd>{when}</dd></div>
+        <div><dt>Kde</dt><dd>{where}</dd></div>
+      </dl>
+      <div class="actions"><slot /></div>
+    </div>
+  </div>
+  <div class="wrap ehero-media">
+    <img src={image} alt={imageAlt} width="1140" height="312" fetchpriority="high" />
+  </div>
+</section>
+
+<style>
+  .ehero { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+  .ehero h1 { max-width: 18ch; }
+  .facts { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin: 1.75rem 0 0; }
+  .facts div { padding: 0; }
+  .facts dt { font-size: var(--fs-sm); color: var(--ink-soft); }
+  .facts dd { margin: 0; font-weight: 600; }
+  .ehero-media { margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .ehero-media img {
+    width: 100%; max-height: 420px; object-fit: cover;
+    animation: unveil 1.4s var(--ease) 0.25s both;
+  }
+  @keyframes unveil { from { opacity: 0; clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+</style>

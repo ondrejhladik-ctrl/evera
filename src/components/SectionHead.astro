@@ -1,0 +1,13 @@
+---
+interface Props { eyebrow?: string; title: string; id?: string }
+const { title } = Astro.props;
+---
+<div class="shead">
+  <h2 data-title>{title}</h2>
+  <div class="shead-body" data-reveal><slot /></div>
+</div>
+<style>
+  .shead { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); max-width: 46rem; }
+  .shead h2 { margin-bottom: 0.6em; }
+  .shead-body:empty { display: none; }
+</style>
