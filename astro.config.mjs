@@ -1,54 +1,61 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {defineConfig, envField} from 'astro/config';
 
 /**
- * Náhled na GitHub Pages běží v podsložce (např. /evera-web/).
- * Spuštění: BASE_PATH=evera-web npm run build
- * Ostrý web (evera.cz) se buildí bez BASE_PATH.
+ * A STATIC site: every page is prerendered to plain files in `dist/` (no
+ * adapter, no server code). The platform serves them as they are; a root
+ * `404.html` answers every miss. The blog is Markdown in `src/content/blog/`,
+ * built into pages like everything else.
+ *
+ * Search and feeds are files too: `/sitemap.xml`, `/robots.txt` and
+ * `/rss.xml` are built from `src/pages/*.xml.ts` / `robots.txt.ts`.
+ *
+ * Navigation is client-side (`<ClientRouter />` in Base.astro) between real
+ * prerendered pages (best for search): the next page is fetched ahead by
+ * `prefetch` (below) and swapped in without a reload.
  */
-// BASE_PATH stačí zadat bez lomítek (např. "evera-web"), Git Bash by „/…“ přepsal na cestu Windows
-const BASE_NAME = (process.env.BASE_PATH || '').replace(/^.*[\/](?=[^\/]+[\/]?$)/, '').replace(/^\/+|\/+$/g, '');
-const BASE = BASE_NAME ? `/${BASE_NAME}/` : '/';
-const SITE = process.env.SITE_URL || 'https://evera.cz';
-
-/** Po buildu doplní podsložku do všech odkazů začínajících „/“ (href, src, srcset…). */
-function prefixRootLinks() {
-  return {
-    name: 'prefix-root-links',
-    hooks: {
-      'astro:build:done': ({ dir }) => {
-        if (BASE === '/') return;
-        const b = BASE.slice(0, -1); // "/evera-web"
-        const root = fileURLToPath(dir);
-        const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
-        for (const f of walk(root)) {
-          if (!f.endsWith('.html')) continue;
-          let s = fs.readFileSync(f, 'utf8');
-          // atributy s jednou cestou
-          s = s.replace(/(\s(?:href|src|action|poster|data-href)=["'])\/(?!\/)/g, (m, p1) => `${p1}${b}/`);
-          // srcset (více cest oddělených čárkou)
-          s = s.replace(/(\ssrcset=["'])([^"']+)(["'])/g, (m, p1, list, p3) => p1 + list.replace(/(^|,\s*)\/(?!\/)/g, `$1${b}/`) + p3);
-          // dvojité prefixy (pokud už Astro cestu doplnilo samo)
-          s = s.split(`${b}${b}/`).join(`${b}/`);
-          fs.writeFileSync(f, s);
-        }
-        fs.writeFileSync(path.join(root, '.nojekyll'), '');
-      },
-    },
-  };
-}
 
 export default defineConfig({
-  site: SITE,
-  base: BASE,
+  output: 'static',
+  // Fetch a page before the click: every same-site link when the visitor
+  // hovers or focuses it (`hover`: only pages someone is about to open, so no
+  // wasted bytes), the header nav as soon as it is on screen
+  // (`data-astro-prefetch="viewport"` in Base.astro: phones have no hover).
+  // Skipped on slow connections and with Data Saver. With the client router,
+  // the site's only scripts: small deferred modules from 'self' (performance.md).
+  prefetch: {prefetchAll: true, defaultStrategy: 'hover'},
+  // Directory URLs (`/about/`) with trailing slashes, as a static host serves them.
   trailingSlash: 'ignore',
-  server: { port: 4321 },
-  // Hosting EzyStudio běží na Cloudflare: adaptér je povinný. Web je celý statický (prerender).
-  adapter: cloudflare({ imageService: 'compile' }),
-  session: false,
-  integrations: [prefixRootLinks()],
+  build: {
+    format: 'directory',
+    // The stylesheet is small: inline it in every page so nothing blocks the
+    // first paint (no extra request; the CSP hashes it).
+    inlineStylesheets: 'always',
+  },
+  env: {
+    schema: {
+      // The site's own address, set by the platform during a Publish build. Read
+      // only through src/lib/site-url.ts (canonical URLs, sitemap, RSS).
+      SITE_URL: envField.string({context: 'server', access: 'public', optional: true}),
+    },
+  },
+  // No Markdown code blocks here; Shiki's inline styles would break the CSP.
+  markdown: {syntaxHighlight: false},
+  security: {
+    // A Content-Security-Policy in every page, with a hash for each script and
+    // style Astro emits. The browser talks only to this host (`connect-src
+    // 'self'`); images may come from any https CDN (logos, blog covers).
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' https: data:",
+        "font-src 'self'",
+        "connect-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self' mailto:",
+        // Video players a post may embed (an <iframe> in its Markdown).
+        'frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com',
+      ],
+    },
+  },
 });

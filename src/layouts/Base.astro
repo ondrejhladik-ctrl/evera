@@ -1,332 +1,136 @@
 ---
+/**
+ * <head>, header and footer for every page. Pure HTML and CSS, and the
+ * stylesheet is inlined (astro.config.mjs), so nothing blocks the first paint.
+ * The only scripts are Astro's own, deferred modules from this host: prefetch
+ * (`prefetch` in astro.config.mjs: a link the visitor points at is fetched
+ * ahead) and client navigation (`<ClientRouter />`: a click swaps the next
+ * page in without a reload and announces its title to screen readers). Every
+ * page stays a real prerendered HTML file, so search sees the same pages.
+ *
+ * SEO for every page comes from the props: a unique `title` + `description`,
+ * a canonical URL and `og:url` (when the site's address is known,
+ * src/lib/site-url.ts), Open Graph + Twitter card tags, and links to the RSS
+ * feed and the sitemap. Structured data (JSON-LD, src/lib/json-ld.ts): the
+ * home page gets `WebSite` + `Organization`, a page passes its own in `jsonLd`
+ * (a post's `BlogPosting`).
+ */
 import '../styles/global.css';
-import media from '../data/media.json';
 
-interface NavItem { label: string; href: string }
+import {ClientRouter} from 'astro:transitions';
+
+import {NAV, SITE} from '../content/site';
+import {type JsonLd, jsonLdText, siteJsonLd} from '../lib/json-ld';
+import {absoluteUrl} from '../lib/site-url';
+
 interface Props {
-  title: string;
+  /** The page's own name; the tab shows "<title> · <site>". Omit on home. */
+  title?: string;
+  /** The meta description (search results, social cards): ~150 characters. */
   description?: string;
-  theme?: 'evera' | 'setkani' | 'kondept';
-  nav?: NavItem[];
-  logo?: string;
-  logoAlt?: string;
-  homeHref?: string;
-  cta?: NavItem;
-  /** 'over' = průhledná hlavička přes tmavé hero, po odscrollování světlá */
-  header?: 'solid' | 'over';
-  /** úvodní preloader se sloganem a logem (jen hlavní stránka) */
-  preloader?: boolean;
+  /** A social card image, 1200×630: a `/path` on this site or an https URL. */
+  image?: string;
+  /** Text for the social image (`og:image:alt`). */
+  imageAlt?: string;
+  /** `article` on a blog post (adds its dates), `website` elsewhere. */
+  type?: 'website' | 'article';
+  publishedAt?: Date;
+  updatedAt?: Date;
+  /** Keep this page out of search results (and the sitemap: src/pages/sitemap.xml.ts). */
+  noindex?: boolean;
+  /** The page's own structured data (src/lib/json-ld.ts), e.g. `postJsonLd(…)` on a post. */
+  jsonLd?: JsonLd;
 }
+
 const {
   title,
-  description = 'Evera Agency – kongresy a konference v oblasti psychologie, psychoterapie a sociální práce.',
-  theme = 'evera',
-  nav = [
-    { label: 'O nás', href: '/#o-nas' },
-    { label: 'Konference', href: '/#konference' },
-    { label: 'Kdo jsme', href: '/#kdo-jsme' },
-    { label: 'Kontakt', href: '/#kontakt' },
-  ],
-  logo = media.logoEvera,
-  logoAlt = 'Evera – event & travel agency',
-  homeHref = '/',
-  cta,
-  header = 'solid',
-  preloader = false,
+  description = SITE.description,
+  image,
+  imageAlt,
+  type = 'website',
+  publishedAt,
+  updatedAt,
+  noindex = false,
+  jsonLd,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name;
+const path = Astro.url.pathname;
+const canonical = noindex ? null : absoluteUrl(path);
+const socialImage = image ? absoluteUrl(image) : null;
+const active = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+// The home page tells search engines the site's name; other pages bring their own.
+const structured = [...(path === '/' ? [siteJsonLd()] : []), ...(jsonLd && !noindex ? [jsonLd] : [])];
 ---
+
 <!doctype html>
-<html lang="cs" class={`theme-${theme}`}>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1d3a45" />
-  {import.meta.env.BASE_URL !== '/' && <meta name="robots" content="noindex, nofollow" />}
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="cs_CZ" />
-  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
-  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <script is:inline>document.documentElement.classList.add('js')</script>
-  {preloader && (
-    <script is:inline>
-      (function () {
-        var h = document.documentElement;
-        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!reduce) {
-          h.classList.add('pre-on');
-          // při obnovení začít nahoře, ne uprostřed stránky pod preloaderem
-          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-          window.scrollTo(0, 0);
-        }
-      })();
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    {type === 'article' && publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
+    {type === 'article' && updatedAt && <meta property="article:modified_time" content={updatedAt.toISOString()} />}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title ?? SITE.name} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} blog`} href="/rss.xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    {structured.map(data => <script type="application/ld+json" set:html={jsonLdText(data)} />)}
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a href="/" class="brand">{SITE.name}</a>
+        <nav class="site-nav" aria-label="Main">
+          {
+            NAV.map(item => (
+              <a href={item.href} data-astro-prefetch="viewport" aria-current={active(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer-inner">
+        <span>© {new Date().getUTCFullYear()} {SITE.name}</span>
+        <nav aria-label="Footer">
+          {NAV.map(item => <a href={item.href}>{item.label}</a>)}
+          <a href="/rss.xml">RSS</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      import {notifyPaymentOpener} from '../lib/checkout-session';
+      import {installPageProgress} from '../lib/page-progress';
+
+      installPageProgress();
+
+      // Back from the payment provider INSIDE a Buy button's payment window: tell the page that
+      // opened it (it checks the payment and goes on), then close (docs/agent/payments.md).
+      document.addEventListener('astro:page-load', notifyPaymentOpener);
     </script>
-  )}
-</head>
-<body>
-  {preloader && (
-    <div class="preloader" aria-hidden="true">
-      <p class="pre-slogan">
-        <span class="pl"><span>Vaše téma.</span></span>
-        <span class="pl"><span class="pl-accent">Naše zkušenost.</span></span>
-        <span class="pl"><span>Společný smysl.</span></span>
-      </p>
-      <img class="pre-logo" src={media.logoEvera} alt="" width="320" height="112" />
-    </div>
-  )}
-  <a class="skip" href="#obsah">Přeskočit na obsah</a>
-  <header class={`site-header ${header === 'over' ? 'over' : ''}`}>
-    <div class="wrap bar">
-      <a href={homeHref} class="brand" aria-label={logoAlt}>
-        <img src={logo} alt={logoAlt} width="160" height="56" />
-      </a>
-      <nav aria-label="Hlavní navigace" class="menu">
-        <button class="toggle" type="button" aria-expanded="false" aria-controls="nav-list" aria-label="Otevřít menu"><span></span><span></span></button>
-        <ul id="nav-list">
-          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-          {cta && <li class="cta"><a class="btn" href={cta.href}>{cta.label}</a></li>}
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main id="obsah">
-    <slot />
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap foot">
-      <div class="foot-brand">
-        <img src={media.logoEvera} alt="Evera" width="160" height="56" class="foot-logo" />
-        <p>Odborná setkání v oblasti psychologie, psychoterapie a sociální práce.</p>
-      </div>
-      <div class="foot-col">
-        <span class="foot-label">Kontakt</span>
-        <a href="tel:+420731573668">+420 731 573 668</a>
-        <a href="mailto:info@evera.cz">info@evera.cz</a>
-        <span>Branická 230/115, Praha 4</span>
-      </div>
-      <div class="foot-col">
-        <span class="foot-label">Konference 2027</span>
-        <a href="/setkani-v-pohybu/">Setkání v pohybu</a>
-        <a href="/kondept2/">Kondept – dětská psychoterapie</a>
-      </div>
-    </div>
-    <div class="wrap legal">
-      <span>© {new Date().getFullYear()} Evera Agency s.r.o.</span>
-      <span>IČO 22547827 · DIČ CZ22547827</span>
-    </div>
-  </footer>
-
-  <script>
-    import Lenis from 'lenis';
-
-    // Plynulý scroll – jen když uživatel nemá v systému omezené animace
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let lenis: Lenis | null = null;
-    if (!reduceMotion) {
-      const headerH = () => (document.querySelector('.site-header') as HTMLElement | null)?.offsetHeight ?? 0;
-      lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-      const raf = (t: number) => { lenis?.raf(t); requestAnimationFrame(raf); };
-      requestAnimationFrame(raf);
-      (window as any).__lenis = lenis;
-      // Odkazy na kotvy na téže stránce (#x i /stranka/#x) posouvat plynule a pod hlavičku
-      const stickyH = () => headerH() + ((document.querySelector('.chips-bar') as HTMLElement | null)?.offsetHeight ?? 0) + 16;
-      document.addEventListener('click', (e) => {
-        const a = (e.target as HTMLElement).closest?.('a[href*="#"]') as HTMLAnchorElement | null;
-        if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
-        const url = new URL(a.href, location.href);
-        if (url.pathname !== location.pathname || url.origin !== location.origin) return;
-        const target = url.hash.length > 1 ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
-        e.preventDefault();
-        lenis?.scrollTo(target ?? 0, { offset: target ? -stickyH() : 0 });
-        history.pushState(null, '', url.hash || location.pathname);
-      });
-    }
-
-    // Preloader: po doběhnutí animace ho odstraníme (do té doby se nescrolluje)
-    if (document.documentElement.classList.contains('pre-on')) {
-      lenis ? lenis.stop() : (document.documentElement.style.overflow = 'hidden');
-      window.setTimeout(() => {
-        lenis ? lenis.start() : (document.documentElement.style.overflow = '');
-        window.setTimeout(() => document.querySelector('.preloader')?.remove(), 900);
-        // pokud adresa obsahuje kotvu (#kontakt), po preloaderu na ni sjet
-        const t = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-        if (t) {
-          const off = ((document.querySelector('.site-header') as HTMLElement | null)?.offsetHeight ?? 0) + 16;
-          lenis ? lenis.scrollTo(t, { offset: -off }) : t.scrollIntoView();
-        }
-      }, 3400);
-    } else {
-      document.querySelector('.preloader')?.remove();
-    }
-    // Česká typografie: jednopísmenné předložky a spojky nenechávat na konci řádku
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const re = /(^|[\s(„])([vkszouaiVKSZOUAI])\s+/g;
-    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
-      const t = n.nodeValue;
-      if (t && re.test(t)) n.nodeValue = t.replace(re, '$1$2 ');
-      re.lastIndex = 0;
-    }
-    // Nadpisy s data-title: rozdělit na řádky po slovech kvůli maskovanému odhalení
-    document.querySelectorAll<HTMLElement>('[data-title]').forEach((el) => {
-      if (el.dataset.split) return;
-      el.dataset.split = '1';
-      const parts = [...el.childNodes];
-      el.textContent = '';
-      let li = 0;
-      const addLine = (node: Node) => {
-        const tl = document.createElement('span'); tl.className = 'tl';
-        const inner = document.createElement('span'); inner.style.setProperty('--l', String(li));
-        tl.style.setProperty('--l', String(li));
-        inner.appendChild(node); tl.appendChild(inner); el.appendChild(tl);
-        (inner as HTMLElement).style.transitionDelay = `${li * 90}ms`;
-        li++;
-      };
-      parts.forEach((n) => addLine(n));
-    });
-
-    // Jemné odhalování obsahu při scrollu
-    const els = document.querySelectorAll<HTMLElement>('[data-reveal], [data-title], [data-img], [data-stagger]');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-        }
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-      els.forEach((el) => io.observe(el));
-    } else {
-      els.forEach((el) => el.classList.add('is-in'));
-    }
-    // Stín hlavičky po odscrollování
-    const header = document.querySelector('.site-header');
-    const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    // Mobilní menu
-    const toggle = document.querySelector<HTMLButtonElement>('.menu .toggle');
-    const menu = document.querySelector('.menu');
-    const setOpen = (open: boolean) => {
-      menu?.classList.toggle('open', open);
-      toggle?.setAttribute('aria-expanded', String(open));
-    };
-    toggle?.addEventListener('click', () => setOpen(!menu?.classList.contains('open')));
-    document.querySelectorAll('.menu a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-  </script>
-</body>
+  </body>
 </html>
-
-<style>
-  /* ===== PRELOADER ===== */
-  .preloader { display: none; }
-  :global(html.pre-on) .preloader {
-    position: fixed; inset: 0; z-index: 200; background: var(--ink); color: #fff;
-    display: grid; place-items: center;
-    animation: pre-out 0.9s cubic-bezier(0.76, 0, 0.24, 1) 3.4s forwards;
-  }
-  .pre-slogan, .pre-logo { grid-area: 1 / 1; }
-  .pre-slogan {
-    margin: 0; padding: 0 var(--gutter); text-align: center;
-    font-family: var(--font-display); font-weight: 600; letter-spacing: -0.035em; line-height: 1;
-    font-size: clamp(2.2rem, 6vw, 5.5rem);
-    animation: pre-fade 0.5s ease 2.1s forwards;
-  }
-  .pl { display: block; overflow: hidden; padding-bottom: 0.08em; }
-  .pl > span { display: inline-block; transform: translateY(105%); animation: pre-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .pl:nth-child(1) > span { animation-delay: 0.15s; }
-  .pl:nth-child(2) > span { animation-delay: 0.55s; }
-  .pl:nth-child(3) > span { animation-delay: 0.95s; }
-  .pl-accent { color: #f4a68e; font-weight: 300; }
-  .pre-logo {
-    width: clamp(11rem, 22vw, 18rem); height: auto; filter: brightness(0) invert(1);
-    opacity: 0; clip-path: inset(0 100% 0 0);
-    animation: pre-logo 1s cubic-bezier(0.22, 1, 0.36, 1) 2.4s forwards;
-  }
-  @keyframes pre-line { to { transform: none; } }
-  @keyframes pre-fade { to { opacity: 0; transform: translateY(-12px); } }
-  @keyframes pre-logo { to { opacity: 1; clip-path: inset(0 0 0 0); } }
-  @keyframes pre-out { to { transform: translateY(-100%); visibility: hidden; } }
-
-  .skip { position: absolute; left: -9999px; }
-  .skip:focus { left: 1rem; top: 1rem; z-index: 100; background: #fff; padding: 0.5rem 1rem; }
-
-  .site-header {
-    position: sticky; top: 0; z-index: 50;
-    background: color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter: saturate(1.4) blur(10px);
-    -webkit-backdrop-filter: saturate(1.4) blur(10px);
-    transition: box-shadow 0.4s var(--ease);
-  }
-  .site-header.scrolled { box-shadow: 0 8px 24px -18px rgba(29, 58, 69, 0.35); }
-  .site-header.over { position: fixed; left: 0; right: 0; transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), color 0.4s; }
-  .site-header.over:not(.scrolled) { background: rgba(10, 25, 30, 0.35); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); color: #fff; }
-  .site-header.over:not(.scrolled) .brand img { filter: brightness(0) invert(1); }
-  .site-header.over:not(.scrolled) .toggle { color: #fff; }
-  .site-header.over:not(.scrolled) .menu li a:not(.btn) { color: #fff; }
-  @media (max-width: 979px) { .site-header.over:not(.scrolled) .menu.open ul a:not(.btn) { color: var(--ink); } }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: var(--header-h); }
-  .brand img { height: 3.9rem; width: auto; }
-  @media (max-width: 979px) { .brand img { height: 3rem; } }
-
-  .toggle {
-    appearance: none; border: 0; background: none; cursor: pointer; width: 2.75rem; height: 2.75rem;
-    display: grid; place-content: center; gap: 6px; border-radius: 999px; color: var(--ink);
-  }
-  .toggle span { display: block; width: 1.4rem; height: 1.5px; background: currentColor; transition: transform 0.4s var(--ease); }
-  .menu.open .toggle span:first-child { transform: translateY(3.75px) rotate(45deg); }
-  .menu.open .toggle span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
-  .menu ul {
-    list-style: none; margin: 0; padding: 0.75rem var(--gutter) 1.5rem;
-    position: absolute; left: 0; right: 0; top: 100%;
-    background: var(--paper);
-    display: none;
-  }
-  .menu.open ul { display: block; animation: drop 0.45s var(--ease); }
-  .menu li { margin: 0; }
-  .menu li a:not(.btn) { display: block; padding: 0.7rem 0; text-decoration: none; font-weight: 500; }
-  .menu li.cta { padding-top: 1rem; }
-  @keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
-
-  @media (min-width: 980px) {
-    .toggle { display: none; }
-    .menu ul, .menu.open ul {
-      position: static; display: flex; align-items: center; gap: 1.6rem;
-      padding: 0; background: none; border: 0; animation: none;
-    }
-    .menu ul, .menu.open ul { gap: 2.4rem; }
-    .menu li a:not(.btn) { padding: 0.3rem 0; border: 0; font-size: 1.0625rem; font-weight: 550; position: relative; }
-    .menu li a:not(.btn)::after {
-      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px;
-      background: var(--accent); transform: scaleX(0); transform-origin: left;
-      transition: transform 0.45s var(--ease);
-    }
-    .menu li a:not(.btn):hover::after { transform: scaleX(1); }
-    .menu li.cta { padding: 0; }
-  }
-
-  .site-footer { background: var(--ink); color: #fff; padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; font-size: var(--fs-sm); }
-  .site-footer a { color: #fff; text-decoration: none; transition: opacity 0.2s; }
-  .site-footer a:hover { color: #fff; opacity: 0.7; }
-  .foot { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
-  @media (min-width: 800px) { .foot { grid-template-columns: 2fr 1fr 1fr; } }
-  .foot-logo { height: 3rem; width: auto; filter: brightness(0) invert(1); margin-bottom: 1rem; }
-  .foot-brand p { color: rgba(255, 255, 255, 0.6); max-width: 22rem; margin: 0; }
-  .foot-col { display: flex; flex-direction: column; gap: 0.45rem; }
-  .foot-label { color: rgba(255, 255, 255, 0.5); margin-bottom: 0.3rem; }
-  .legal {
-    display: grid; grid-template-columns: 1fr; gap: 0.5rem 2.5rem;
-    margin-top: clamp(2.5rem, 5vw, 4rem); color: rgba(255, 255, 255, 0.45); font-size: var(--fs-xs);
-  }
-  /* stejné sloupce jako horní část patičky – IČO/DIČ začíná pod „Konference 2027“ */
-  @media (min-width: 800px) {
-    .legal { grid-template-columns: 2fr 1fr 1fr; }
-    .legal span:last-child { grid-column: 3; }
-  }
-</style>

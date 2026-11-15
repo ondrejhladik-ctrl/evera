@@ -1,17 +1,16 @@
 ---
+/** Built as `404.html` at the root: the platform answers every missing path with it. */
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Stránka nenalezena – Evera">
-  <section class="section">
-    <div class="wrap narrow hero-in">
-      <span class="kicker">Chyba 404</span>
-      <h1>Tuto stránku jsme nenašli</h1>
-      <p class="lede">Web Evera prošel rekonstrukcí a některé adresy se změnily.</p>
-      <div class="actions">
-        <a class="btn" href="/">Hlavní stránka</a>
-        <a class="btn ghost" href="/setkani-v-pohybu/">Setkání v pohybu</a>
-        <a class="btn ghost" href="/kondept2/">Kondept 2027</a>
-      </div>
+
+<Base title="Page not found" noindex>
+  <section class="wrap narrow section center">
+    <p class="eyebrow">404</p>
+    <h1>This page doesn't exist</h1>
+    <p class="lede">The link may be old, or the address mistyped.</p>
+    <div class="actions">
+      <a class="button" href="/">Go to the home page</a>
+      <a class="button ghost" href="/blog/">Read the blog</a>
     </div>
   </section>
 </Base>
