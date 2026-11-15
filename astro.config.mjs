@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -47,8 +46,5 @@ export default defineConfig({
   base: BASE,
   trailingSlash: 'ignore',
   server: { port: 4321 },
-  // Hosting EzyStudio běží na Cloudflare: adaptér je povinný. Web je celý statický (prerender).
-  adapter: cloudflare({ imageService: 'compile' }),
-  session: false,
   integrations: [prefixRootLinks()],
 });
