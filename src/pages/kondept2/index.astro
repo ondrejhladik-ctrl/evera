@@ -51,7 +51,10 @@ const quotes = [
   ['Děkujeme za příležitost účastnit se konference. Bylo to velmi inspirativní a skvěle zorganizované setkání.', 'Michaela Širůčková'],
 ];
 // všechny fotky z původní stránky (Ozvěny 2025)
-const photos = ['2026/05/1470503', '2026/05/1470520', '2026/07/1500393', '2026/07/1470586', '2026/07/1470600', '2026/07/1470796', '2026/07/1500510', '2026/07/1500389-1', '2026/07/1490342', '2026/07/1490362', '2026/07/1500124', '2026/07/1480724', '2026/07/1490398', '2026/07/1480563', '2026/07/1500214', '2026/07/1500411', '2026/07/1490850'].map((n) => `/media/${n}-800x600.webp`);
+const photos = ['2026/05/1470503', '2026/05/1470520', '2026/07/1500393', '2026/07/1470586', '2026/07/1470600', '2026/07/1470796', '2026/07/1500510', '2026/07/1500389-1', '2026/07/1490342', '2026/07/1490362', '2026/07/1500124', '2026/07/1480724', '2026/07/1490398', '2026/07/1480563', '2026/07/1500214', '2026/07/1500411', '2026/07/1490850'].map((n) => `/media/${n}-800x600.webp`).concat(
+  // galerie „Fotografie Kondept“ ze starého webu
+  'DSC_0642 DSC_0637-2 DSC_0641 DSC_0635 DSC_0625-2 DSC_0622 DSC_0607 DSC_0598 DSC_0600-2 DSC_0596 DSC_0592 DSC_0588 DSC_0590 DSC_0587-2 DSC_0585-2 DSC_0581-2'.split(' ').map((n) => `/media/2023/06/${n}.webp`),
+);
 const committee = ['Radka Faifrová', 'Ivana Fujanová', 'Petr Hrouzek', 'Veronika Kašparová', 'Michal Kniha', 'Barbora Křivanová', 'Ingrid Kubiszová', 'Sára Machová', 'Eva Naimanová', 'Kateřina Paclíková', 'Tereza Pojmanová Pandadis', 'Žaneta Říhová', 'Noemi Matějková', 'Lucia Šnajderová', 'Veronika Stoláriková', 'Jaroslav Vrba', 'Milena Kutlátková Nováková', 'Jakub Nepejchal'];
 const students = 'Mgr. Markéta Bosáková, MDDr. Lenka Černá, MBA, Mgr. Anežka Dvořáková, Mgr. Marie Magdala Hluško, Mgr. Markéta Chrášťanská, Mgr. Dana Jakšičová, Mgr. Josef Janků, Mgr. Michaela Kotvová, Mgr. Adéla Kubalíková, Mgr. Michaela Kubínová, Mgr. Aneta Lingová, Mgr. Jana Macková, PhDr. Josef Mižigar, Mgr. Petra Nekulová, Mgr. Marie Nováková, Mgr. Lenka Pivodová, PhD., Mgr. Lada Sanvenero, Mgr. Marek Stránský, Mgr. Jana Švecová, Mgr. Ondřej Toth, Mgr. Kateřina Vápenková, Mgr. Aneta Viktorová';
 const coordinators = [
