@@ -32,7 +32,7 @@ for (const it of items) {
   <section class="phead">
     <div class="wrap hero-in">
       <a class="back small" href="/setkani-v-pohybu/">← Setkání v pohybu</a>
-      <h1>Lidé a příspěvky konference</h1>
+      <h1>Prezentující a jejich příspěvky</h1>
       <p>V roce 2027 přivítá naše konference výrazné osobnosti současné gestalt terapie z Česka, Evropy i zámoří. Setkají se zde terapeuti, lektoři a výzkumníci, kteří dlouhodobě spoluutvářejí podobu psychoterapie ve svých zemích i na mezinárodní scéně.</p>
       <p>Čekají nás přednášky otevírající nové perspektivy, témata rezonující se současným světem i živá setkání s lidmi, kteří propojují odbornou hloubku, lidskost a odvahu hledat nové cesty terapeutické práce.</p>
     </div>
@@ -68,9 +68,7 @@ for (const it of items) {
     <section class={`section ${ci % 2 === 0 ? 'tint' : ''}`} id={c.id}>
       <Bubbles set={((ci % 4) + 1) as 1 | 2 | 3 | 4} />
       <div class="wrap">
-        <SectionHead title={c.name}>
-          <p class="muted">{c.items.length} {c.items.length === 1 ? 'příspěvek' : c.items.length < 5 ? 'příspěvky' : 'příspěvků'} · kliknutím rozbalíte anotaci</p>
-        </SectionHead>
+        <SectionHead title={c.name} />
         <div class="list">
           {c.items.map((it) => (
             <details class="fold talk">

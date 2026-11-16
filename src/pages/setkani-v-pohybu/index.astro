@@ -5,7 +5,7 @@ import Bubbles from '../../components/Bubbles.astro';
 import '../../styles/setkani.css';
 import m from '../../data/media.json';
 import lide from '../../data/setkani-lide.json';
-import { NAV, KEYNOTES, REG_URL, EMAIL } from '../../data/setkani';
+import { NAV, KEYNOTES, REG_URL, REG_ACTIVE, EMAIL } from '../../data/setkani';
 
 const BANNER = '/media/2026/11/banner-setkani-2300.webp';
 const BANNER_S = '/media/2026/11/banner-setkani-1200.webp';
@@ -168,7 +168,9 @@ const slug = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
       <SectionHead title="Registrace" edit="setkani.registrace.nadpis" editLabel="Registrace: nadpis">
         <p data-edit="setkani.registrace.oznameni" data-edit-label="Registrace: krátké oznámení pod nadpisem">Tlačítko registrace pro členy ČSGT aktivujeme 22. listopadu ve 12:00.</p>
         <div class="actions">
-          <a class="btn" href={REG_URL} target="_blank" rel="noopener">Registrace ↗</a>
+          {REG_ACTIVE
+            ? <a class="btn" href={REG_URL} target="_blank" rel="noopener">Registrace ↗</a>
+            : <span class="btn btn-off" aria-disabled="true">Registrace</span>}
         </div>
       </SectionHead>
 

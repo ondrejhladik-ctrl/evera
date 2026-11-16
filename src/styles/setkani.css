@@ -72,6 +72,8 @@ html.theme-setkani .site-footer { background: var(--ink); }
 /* ===== Bubliny – dekorace po stranách sloupce (grafický prvek konference) ===== */
 html.theme-setkani main .section { position: relative; overflow: clip; }
 .bubbles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+/* tlačítko, které ještě není aktivní (registrace) */
+.btn.btn-off, .btn.btn-off:hover { opacity: 0.45; cursor: not-allowed; transform: none; pointer-events: none; }
 html.theme-setkani main .section > .wrap { position: relative; z-index: 1; }
 .bub { position: absolute; display: block; border-radius: 50%; animation: bub-float 14s ease-in-out infinite alternate; }
 .bub.blue { background: var(--accent); }

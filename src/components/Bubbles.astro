@@ -15,9 +15,8 @@ const sets: Record<number, B[]> = {
 };
 ---
 <div class="bubbles" aria-hidden="true">
-  {sets[set].map(([c, s, x, y], i) => (
-    c.startsWith('soap')
-      ? <img class="bub soap" src={c === 'soap' ? '/media/2026/11/bublina-01.webp' : '/media/2026/11/bublina-02.webp'} alt="" width="400" height="400" loading="lazy" style={`width:${s}rem;height:${s}rem;${x};top:${y}%;animation-delay:-${i * 3}s`} />
-      : <span class={`bub ${c}`} style={`width:${s}rem;height:${s}rem;${x};top:${y}%;animation-delay:-${i * 3}s`}></span>
+  {/* barevné tečky (blue/red/light/white) jsou na přání klienta vypnuté – zobrazují se jen mýdlové bubliny */}
+  {sets[set].filter(([c]) => c.startsWith('soap')).map(([c, s, x, y], i) => (
+    <img class="bub soap" src={c === 'soap' ? '/media/2026/11/bublina-01.webp' : '/media/2026/11/bublina-02.webp'} alt="" width="400" height="400" loading="lazy" style={`width:${s}rem;height:${s}rem;${x};top:${y}%;animation-delay:-${i * 3}s`} />
   ))}
 </div>

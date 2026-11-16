@@ -14,6 +14,9 @@ export const NAV = [
 export const EMAIL = 'info@setkanivpohybu.cz';
 
 export const REG_URL = 'https://gestalt.confea.net/cz/uzivatelska-zona';
+// Tlačítko Registrace zatím nefunkční – klient pošle nový odkaz, zapnout 22. 11. 2026 ve 12:00.
+// Až přijde: vložit odkaz do REG_URL a přepnout REG_ACTIVE na true.
+export const REG_ACTIVE = false;
 
 export const KEYNOTES = [
   {

@@ -145,17 +145,29 @@ const onestoSite = import.meta.env.PUBLIC_ONESTO_SITE || '';
     // Plynulý scroll – jen když uživatel nemá v systému omezené animace
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let lenis: Lenis | null = null;
+    const headerH = () => (document.querySelector('.site-header') as HTMLElement | null)?.offsetHeight ?? 0;
+    // výška toho, co je přilepené nahoře (hlavička + případně lišta kategorií) + vůle
+    const stickyH = () => {
+      const chips = document.querySelector('.chips-bar') as HTMLElement | null;
+      return headerH() + (chips && getComputedStyle(chips).position === 'sticky' ? chips.offsetHeight : 0) + 16;
+    };
+    // Sjet na kotvu tak, aby byla NAHOŘE pod hlavičkou. Během scrollu se může obsah nad cílem
+    // ještě natáhnout (dočítají se obrázky, písma), proto po dojetí polohu zkontrolujeme a dorovnáme.
+    const goTo = (t: HTMLElement, smooth: boolean, tries = 3) => {
+      const fix = () => {
+        const d = t.getBoundingClientRect().top - stickyH();
+        if (Math.abs(d) > 4 && tries > 0) goTo(t, false, tries - 1);
+      };
+      if (lenis) lenis.scrollTo(t, { offset: -stickyH(), immediate: !smooth, force: true, onComplete: fix });
+      else { window.scrollTo({ top: window.scrollY + t.getBoundingClientRect().top - stickyH(), behavior: smooth ? 'smooth' : 'auto' }); window.setTimeout(fix, smooth ? 900 : 50); }
+    };
+    const hashTarget = () => (location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null);
     if (!reduceMotion) {
-      const headerH = () => (document.querySelector('.site-header') as HTMLElement | null)?.offsetHeight ?? 0;
       lenis = new Lenis({ duration: 1.15, smoothWheel: true });
       const raf = (t: number) => { lenis?.raf(t); requestAnimationFrame(raf); };
       requestAnimationFrame(raf);
       (window as any).__lenis = lenis;
       // Odkazy na kotvy na téže stránce (#x i /stranka/#x) posouvat plynule a pod hlavičku
-      const stickyH = () => {
-        const chips = document.querySelector('.chips-bar') as HTMLElement | null;
-        return headerH() + (chips && getComputedStyle(chips).position === 'sticky' ? chips.offsetHeight : 0) + 16;
-      };
       document.addEventListener('click', (e) => {
         const a = (e.target as HTMLElement).closest?.('a[href*="#"]') as HTMLAnchorElement | null;
         if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
@@ -163,7 +175,7 @@ const onestoSite = import.meta.env.PUBLIC_ONESTO_SITE || '';
         if (url.pathname !== location.pathname || url.origin !== location.origin) return;
         const target = url.hash.length > 1 ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
         e.preventDefault();
-        lenis?.scrollTo(target ?? 0, { offset: target ? -stickyH() : 0 });
+        if (target) goTo(target, true); else lenis?.scrollTo(0);
         history.pushState(null, '', url.hash || location.pathname);
       });
     }
@@ -175,14 +187,18 @@ const onestoSite = import.meta.env.PUBLIC_ONESTO_SITE || '';
         lenis ? lenis.start() : (document.documentElement.style.overflow = '');
         window.setTimeout(() => document.querySelector('.preloader')?.remove(), 900);
         // pokud adresa obsahuje kotvu (#kontakt), po preloaderu na ni sjet
-        const t = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-        if (t) {
-          const off = ((document.querySelector('.site-header') as HTMLElement | null)?.offsetHeight ?? 0) + 16;
-          lenis ? lenis.scrollTo(t, { offset: -off }) : t.scrollIntoView();
-        }
+        const t = hashTarget();
+        if (t) goTo(t, true);
       }, 3400);
     } else {
       document.querySelector('.preloader')?.remove();
+      // příchod z jiné stránky rovnou na kotvu (/setkani-v-pohybu/#registrace): prohlížeč skočí dřív,
+      // než se načtou obrázky a písma, a sekce pak sjede dolů – po načtení ji vrátíme nahoru
+      if (hashTarget()) {
+        const settle = () => { const t = hashTarget(); if (t) goTo(t, false); };
+        if (document.readyState === 'complete') settle(); else window.addEventListener('load', settle, { once: true });
+        document.fonts?.ready.then(settle);
+      }
     }
     // Česká typografie: jednopísmenné předložky a spojky nenechávat na konci řádku
     const typography = () => {
