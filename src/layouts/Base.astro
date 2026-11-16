@@ -153,7 +153,10 @@ const onestoSite = import.meta.env.PUBLIC_ONESTO_SITE || '';
     };
     // Sjet na kotvu tak, aby byla NAHOŘE pod hlavičkou. Během scrollu se může obsah nad cílem
     // ještě natáhnout (dočítají se obrázky, písma), proto po dojetí polohu zkontrolujeme a dorovnáme.
-    const goTo = (t: HTMLElement, smooth: boolean, tries = 3) => {
+    const goTo = (el: HTMLElement, smooth: boolean, tries = 3) => {
+      // u sekce mířit na její nadpis, ne na horní okraj – jinak nad nadpisem zůstane celé odsazení sekce
+      // a nadpis se zobrazí zbytečně nízko
+      const t = (el.matches('section') && el.querySelector<HTMLElement>('h2')) || el;
       const fix = () => {
         const d = t.getBoundingClientRect().top - stickyH();
         if (Math.abs(d) > 4 && tries > 0) goTo(t, false, tries - 1);
