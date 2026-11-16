@@ -7,6 +7,6 @@
  *   2) klíč vlož do WEB3FORMS_KEY
  * Dokud je klíč prázdný, formulář nic neodešle a ukáže upozornění.
  */
-export const WEB3FORMS_KEY = '';
+export const WEB3FORMS_KEY = '7acb9782-4f2e-4721-98bb-f8764894fe96';
 export const FORM_SUBJECT = 'Nová poptávka z webu evera.cz';
 export const FORM_FROM = 'Evera web';
