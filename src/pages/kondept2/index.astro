@@ -51,10 +51,7 @@ const quotes = [
   ['Děkujeme za příležitost účastnit se konference. Bylo to velmi inspirativní a skvěle zorganizované setkání.', 'Michaela Širůčková'],
 ];
 // všechny fotky z původní stránky (Ozvěny 2025)
-const photos = ['2026/05/1470503', '2026/05/1470520', '2026/07/1500393', '2026/07/1470586', '2026/07/1470600', '2026/07/1470796', '2026/07/1500510', '2026/07/1500389-1', '2026/07/1490342', '2026/07/1490362', '2026/07/1500124', '2026/07/1480724', '2026/07/1490398', '2026/07/1480563', '2026/07/1500214', '2026/07/1500411', '2026/07/1490850'].map((n) => `/media/${n}-800x600.webp`).concat(
-  // galerie „Fotografie Kondept“ ze starého webu
-  'DSC_0642 DSC_0637-2 DSC_0641 DSC_0635 DSC_0625-2 DSC_0622 DSC_0607 DSC_0598 DSC_0600-2 DSC_0596 DSC_0592 DSC_0588 DSC_0590 DSC_0587-2 DSC_0585-2 DSC_0581-2'.split(' ').map((n) => `/media/2023/06/${n}.webp`),
-);
+const photos = ['2026/05/1470503', '2026/05/1470520', '2026/07/1500393', '2026/07/1470586', '2026/07/1470600', '2026/07/1470796', '2026/07/1500510', '2026/07/1500389-1', '2026/07/1490342', '2026/07/1490362', '2026/07/1500124', '2026/07/1480724', '2026/07/1490398', '2026/07/1480563', '2026/07/1500214', '2026/07/1500411', '2026/07/1490850'].map((n) => `/media/${n}-800x600.webp`);
 const committee = ['Radka Faifrová', 'Ivana Fujanová', 'Petr Hrouzek', 'Veronika Kašparová', 'Michal Kniha', 'Barbora Křivanová', 'Ingrid Kubiszová', 'Sára Machová', 'Eva Naimanová', 'Kateřina Paclíková', 'Tereza Pojmanová Pandadis', 'Žaneta Říhová', 'Noemi Matějková', 'Lucia Šnajderová', 'Veronika Stoláriková', 'Jaroslav Vrba', 'Milena Kutlátková Nováková', 'Jakub Nepejchal'];
 const students = 'Mgr. Markéta Bosáková, MDDr. Lenka Černá, MBA, Mgr. Anežka Dvořáková, Mgr. Marie Magdala Hluško, Mgr. Markéta Chrášťanská, Mgr. Dana Jakšičová, Mgr. Josef Janků, Mgr. Michaela Kotvová, Mgr. Adéla Kubalíková, Mgr. Michaela Kubínová, Mgr. Aneta Lingová, Mgr. Jana Macková, PhDr. Josef Mižigar, Mgr. Petra Nekulová, Mgr. Marie Nováková, Mgr. Lenka Pivodová, PhD., Mgr. Lada Sanvenero, Mgr. Marek Stránský, Mgr. Jana Švecová, Mgr. Ondřej Toth, Mgr. Kateřina Vápenková, Mgr. Aneta Viktorová';
 const coordinators = [
@@ -294,6 +291,18 @@ const coordinators = [
           <p class="small muted">Organizační a administrativní koordinace: Veronika a Karel Fišerovi, <a href="/">Evera Agency</a>.</p>
         </div>
       </div>
+      <h3 class="org-title" data-reveal>Organizátor</h3>
+      <p class="muted" data-reveal>Evera Agency s.r.o.</p>
+      <div class="grid grid-2 org">
+        <div class="person" data-reveal>
+          <img src={m.veronika} alt="Veronika Fišerová" loading="lazy" width="110" height="110" />
+          <div><h4>Veronika Fišerová, DiS.</h4><p class="role">ředitelka a zakladatelka, Evera Agency</p><p class="small muted">Založila a vede kongresovou a incomingovou agenturu Evera Agency. Je podepsána pod organizací mnoha mezinárodních i českých konferencí (Open Society Found 2005, EECERA 2006, konference gestalt psychoterapie 2016 a 2024, dětské psychoterapie 2025 atd.) Je diplomovaná specialistka v oboru management cestovního ruchu, kde působí od roku 1998. V letech 2011. – 2019 založila a vedla sociální podnik Fair Food Club. Za pandemie Covidu pracovala s dětmi s kombinovaným postižením.</p></div>
+        </div>
+        <div class="person" data-reveal style="--i:1">
+          <img src={m.karel} alt="Karel Fišer" loading="lazy" width="110" height="110" />
+          <div><h4>Bc. Karel Fišer</h4><p class="role">výkonný ředitel a zakladatel, Evera Agency</p><p class="small muted">Spoluzakladatel agentury Evera Agency. Vystudoval FHS UK v Praze, má za sebou spoustu humanitární práce, (projekt OSN pro uprchlíky, projekt Help povodně 2002 aj.) Jako organizátor a PR manažer má na kontě stovky akcí (např. Nadace D. a V. Havlových VIZE 97). Je členem ČAP, absolvoval mj. výcvik v integrativní Gestalt psychoterapii. Od roku 2013 působí jako psychoterapeut v pražském Programu Pilot, provozuje vlastní praxi. Externě spolupracuje s řadou organizací.</p></div>
+        </div>
+      </div>
       <div class="card contact-card" data-reveal>
         <h3>Odborné i organizační dotazy</h3>
         <p><a href="mailto:info@kondept.cz">info@kondept.cz</a> · <a href="tel:+420731573668">+420 731 573 668</a></p>
@@ -395,6 +404,12 @@ const coordinators = [
   .lists h3 { font-size: var(--fs-lg); }
   .names { line-height: 1.9; }
   .contact-card { margin-top: 2rem; }
+  .org-title { margin-top: clamp(3rem, 6vw, 4.5rem); margin-bottom: 0.25rem; }
+  .org { margin-top: 1.5rem; }
+  .person { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1.25rem; align-items: start; }
+  .person img { width: 6.5rem; height: 6.5rem; border-radius: 50%; object-fit: cover; }
+  .person h4 { margin-bottom: 0.1rem; }
+  .person .role { color: var(--accent); font-size: var(--fs-sm); margin-bottom: 0.6rem; }
 
   .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 0.75rem; }
   .photos .ph { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; overflow: hidden; }

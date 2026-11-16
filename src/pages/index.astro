@@ -43,7 +43,7 @@ const people = [
     </div>
   </section>
 
-  <!-- KONFERENCE 2027 – karty pod sebou -->
+  <!-- KONFERENCE 2027 – karty vedle sebe -->
   <section class="konf" id="konference">
     <div class="wrap">
       <h2 class="konf-title" data-title><span data-edit="konference.nadpis" data-edit-label="Konference: nadpis">Konference</span> <span class="serif" data-edit="konference.nadpis2" data-edit-label="Konference: nadpis, barevná část">2027</span></h2>
@@ -220,19 +220,18 @@ const people = [
   .konf { background: var(--ink); color: #fff; padding-block: clamp(4rem, 9vw, 7rem); }
   .konf-title { font-size: var(--fs-3xl); max-width: 14ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
   .konf-title .serif { color: #f4a68e; }
-  .stack { display: block; }
+  .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: clamp(1.25rem, 3vw, 2rem); }
   .konf-past { margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; color: rgb(255 255 255 / 0.7); }
   .konf-past a { color: #fff; text-decoration: none; font-weight: 600; }
   .konf-past a:hover { color: #f4a68e; }
   .stack-card {
     --i: 0; cursor: pointer;
     position: relative;
-    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2rem);
-    height: min(66vh, 38rem); margin-bottom: clamp(1.25rem, 3vw, 2rem); padding: clamp(1rem, 2vw, 1.75rem);
+    display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: clamp(1rem, 2vw, 1.5rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
     background: var(--paper); color: var(--ink); text-decoration: none;
     transform-origin: 50% 0; will-change: transform;
   }
-  .stack-card:last-child { margin-bottom: 0; }
   .stack-card:nth-child(2) { --i: 1; }
   .stack-card:nth-child(3) { --i: 2; }
   .stack-card:nth-child(4) { --i: 3; }
@@ -243,8 +242,8 @@ const people = [
     content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
     background: var(--ink); opacity: calc(var(--dim, 0) * 0.35);
   }
-  .sc-text { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(0.75rem, 1.5vw, 1.25rem); }
-  .sc-media { position: relative; overflow: hidden; isolation: isolate; background: var(--ink); }
+  .sc-text { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding: clamp(0.5rem, 1vw, 0.75rem); }
+  .sc-media { position: relative; overflow: hidden; isolation: isolate; background: var(--ink); order: -1; aspect-ratio: 16 / 10; }
   .sc-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
   .stack-card:hover .sc-media img { transform: scale(1.05); }
   .p-tag {
@@ -267,11 +266,7 @@ const people = [
     display: grid; place-items: center; font-size: 1.3rem; transition: transform 0.6s var(--ease);
   }
   .stack-card:hover .p-go { transform: rotate(-45deg) scale(1.1); }
-  @media (max-width: 900px) {
-    .stack-card { position: relative; top: auto; height: auto; grid-template-columns: 1fr; margin-bottom: 1.25rem; }
-    .sc-media { aspect-ratio: 4 / 3; order: -1; }
-    .sc-text { gap: 2rem; }
-  }
+  @media (max-width: 600px) { .sc-media { aspect-ratio: 4 / 3; } }
 
   /* ===== O NÁS ===== */
   .about h2 { max-width: 22ch; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
