@@ -41,21 +41,23 @@ const faq = [
 ];
 const quotes = [
   ['Po stránce organizace jste odvedli skvělou práci do všech detailů. Muselo to stát mnoho úsilí.', 'Mgr. Silvie Ročovská, Ph.D.'],
-  ['Konference byla skvěle zorganizovaná, pestrá, přínosná i zábavná. Ráda přijedu zase.', 'Eva Březinová'],
-  ['Vše bylo perfektně vyladěné – zajímavé přednášky, workshopy, organizace, vynikající jídlo i dostupné ubytování.', 'Hana Kotálová'],
+  ['Ještě jednou moc děkujeme za skvělou organizaci, flexibilitu a ochotu – Vaši, dobrovolníků i pracovníků Jezerky.', 'Petra a Veronika'],
+  ['Konference byla skvěle zorganizovaná, pestrá, přínosná i zábavná. Ráda přijedu zase. Ať se daří.', 'Eva Březinová'],
+  ['Moc děkujeme za konferenci, která byla perfektně připravená a obohacující. Vyzkoušely jsme si náš formát a zjistily, že je potřeba více času. Budeme se těšit na příště.', 'Lenka Chválová'],
+  ['Děkuji za skvěle zorganizovanou konferenci a velmi pěkný zážitek.', 'Radmila Pikorová'],
+  ['Děkuji za úsilí, které jste vynaložili při organizaci konference. Nepadlo vniveč, ale na úrodnou půdu. Moc díky.', 'Kamil Janhuba'],
+  ['Na konferenci mi bylo moc příjemně, děkuji a někdy zase na shledanou.', 'Jana Vraspírová'],
+  ['Děkuji za skvělé zprávy i za uspořádání konference, kterou vnímám jako velmi obohacující. Už se těším na další ročník v roce 2027. Vše bylo perfektně vyladěné – zajímavé přednášky, workshopy, organizace, vynikající jídlo i dostupné ubytování. Děkuji za krásný zážitek a možnost setkání s kolegy v oboru.', 'Hana Kotálová'],
+  ['Děkujeme za příležitost účastnit se konference. Bylo to velmi inspirativní a skvěle zorganizované setkání.', 'Michaela Širůčková'],
 ];
+// všechny fotky z původní stránky (Ozvěny 2025)
+const photos = ['2026/05/1470503', '2026/05/1470520', '2026/07/1500393', '2026/07/1470586', '2026/07/1470600', '2026/07/1470796', '2026/07/1500510', '2026/07/1500389-1', '2026/07/1490342', '2026/07/1490362', '2026/07/1500124', '2026/07/1480724', '2026/07/1490398', '2026/07/1480563', '2026/07/1500214', '2026/07/1500411', '2026/07/1490850'].map((n) => `/media/${n}-800x600.webp`);
 const committee = ['Radka Faifrová', 'Ivana Fujanová', 'Petr Hrouzek', 'Veronika Kašparová', 'Michal Kniha', 'Barbora Křivanová', 'Ingrid Kubiszová', 'Sára Machová', 'Eva Naimanová', 'Kateřina Paclíková', 'Tereza Pojmanová Pandadis', 'Žaneta Říhová', 'Noemi Matějková', 'Lucia Šnajderová', 'Veronika Stoláriková', 'Jaroslav Vrba', 'Milena Kutlátková Nováková', 'Jakub Nepejchal'];
 const students = 'Mgr. Markéta Bosáková, MDDr. Lenka Černá, MBA, Mgr. Anežka Dvořáková, Mgr. Marie Magdala Hluško, Mgr. Markéta Chrášťanská, Mgr. Dana Jakšičová, Mgr. Josef Janků, Mgr. Michaela Kotvová, Mgr. Adéla Kubalíková, Mgr. Michaela Kubínová, Mgr. Aneta Lingová, Mgr. Jana Macková, PhDr. Josef Mižigar, Mgr. Petra Nekulová, Mgr. Marie Nováková, Mgr. Lenka Pivodová, PhD., Mgr. Lada Sanvenero, Mgr. Marek Stránský, Mgr. Jana Švecová, Mgr. Ondřej Toth, Mgr. Kateřina Vápenková, Mgr. Aneta Viktorová';
 const coordinators = [
   { img: m.kVavrova, name: 'Alena Vávrová', role: 'odborná koordinátorka', bio: 'Dětská psycholožka a psychoterapeutka, poradkyně pro rodiče a rodinná terapeutka, ředitelka Institutu dětského poradenství a terapie INDEPT s.r.o. Má soukromou praxi, věnuje se vzdělávání gestalt terapeutů a dětských psychoterapeutů v Čechách i v zahraničí a je supervizorkou dětských psychoterapeutů.', web: 'www.detsky-psycholog.cz' },
   { img: m.kCandia, name: 'Alžběta Candia Muñoz', role: 'odborná koordinátorka', bio: 'Psychodynamická psychoterapeutka a dětská, párová a rodinná gestalt terapeutka. Založila a dlouhá léta vedla organizaci HOST Home-Start ČR, působila i jako metodička asistovaných kontaktů a dětská terapeutka (2003–2023). Má 28 let praxe v práci s ohroženou rodinou. Má soukromou praxi a je členkou lektorského týmu INDEPT.', web: 'www.terapieacm.cz' },
   { img: m.kVavra, name: 'Jan Vávra', role: 'technický koordinátor', bio: 'Psychoterapeut a lektor zaměřený na rodičovské a komunikační dovednosti. Založil a několik let vedl Gordon Institut s.r.o. (kurzy P.E.T. a T.E.T.), je spoluautorem kurzů Rodičovství jako cesta a Rodičovská posilovna a moderuje stejnojmenný podcast. Pro INDEPT vyučuje téma rodičovství; pro konferenci zajišťuje technickou, marketingovou a programovou podporu.', web: 'www.gestalt-terapie.cz' },
-];
-const partners = [
-  { img: m.pPad, url: 'https://www.pad.cz', name: 'PAD' },
-  { img: m.pPortal, url: 'https://nakladatelstvi.portal.cz/nakladatelstvi', name: 'Portál' },
-  { img: m.pBcreative, url: 'https://www.b-creative.cz/', name: 'b-creative' },
-  { img: m.pGrada, url: 'https://www.grada.cz/', name: 'Grada' },
 ];
 ---
 <Base
@@ -134,6 +136,8 @@ const partners = [
           </ul>
           <h3 style="margin-top:clamp(2.5rem, 5vw, 3.5rem)">Ubytování</h3>
           <p class="muted" data-edit="kondept.registrace.ubytovani" data-edit-label="Registrace: ubytování">Ubytování v Kongres Hotelu Jezerka bude možné rezervovat při registraci.</p>
+          <h3 style="margin-top:clamp(2.5rem, 5vw, 3.5rem)">Skupinové registrace</h3>
+          <p class="muted" data-edit="kondept.registrace.skupinove" data-edit-label="Registrace: skupinové registrace">Chcete přihlásit více účastníků za jednu organizaci a zaplatit společně na jednu fakturu? Pro skupinovou registraci kontaktujte organizační agenturu na e-mailu <a href="mailto:info@kondept.cz">info@kondept.cz</a>.</p>
         </div>
         <div data-reveal style="--i:1">
           <h3>Registrační poplatek</h3>
@@ -146,10 +150,10 @@ const partners = [
               <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Sleva – student INDEPT</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)"></span></td><td data-edit-field="cena" data-edit-label="Cena">1 000 Kč</td></tr>
             </tbody>
           </table>
-          <p class="small muted">Ceny jsou včetně DPH 21 %. Skupinové registrace: <a href="mailto:info@kondept.cz">info@kondept.cz</a>.</p>
+          <p class="small muted">Ceny jsou včetně DPH 21 %.</p>
         </div>
       </div>
-      <div class="grid grid-2 more-info">
+      <div class="grid grid-3 more-info">
         <div class="card" data-reveal>
           <h3>Poplatek zahrnuje</h3>
           <ul data-edit="kondept.registrace.zahrnuje" data-edit-type="list" data-edit-label="Registrace: co poplatek zahrnuje">
@@ -162,9 +166,21 @@ const partners = [
           </ul>
         </div>
         <div class="card" data-reveal style="--i:1">
-          <h3>Storno a platba ze zahraničí</h3>
-          <p class="small" data-edit="kondept.registrace.storno" data-edit-label="Registrace: storno podmínky">Storno do 31. 5. 2027 bez poplatku, od 1. 6. 2027 100 % uhrazené částky nebo nalezení náhradníka.</p>
-          <p class="small">Platbu ze zahraničí zadejte v CZK a u bankovních poplatků zvolte variantu OUR. Případný rozdíl doplatíte při registraci na místě.</p>
+          <h3>Storno poplatky</h3>
+          <ul data-edit="kondept.registrace.storno" data-edit-type="list" data-edit-label="Registrace: storno poplatky">
+            <li><span data-edit-field="polozka" data-edit-label="Podmínka">storno do 31. května 2027 = bez poplatku</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Podmínka">storno od 1. června 2027 = 100 % z uhrazené částky nebo nalezení náhradníka</span></li>
+          </ul>
+        </div>
+        <div class="card" data-reveal style="--i:2">
+          <h3>Zahraniční platba</h3>
+          <p class="small" data-edit="kondept.registrace.zahranici.uvod" data-edit-label="Zahraniční platba: úvod">Žádáme dodržení následujících pokynů, aby byla platba připsána na náš účet v plné výši registračního poplatku:</p>
+          <ul data-edit="kondept.registrace.zahranici" data-edit-type="list" data-edit-label="Zahraniční platba: pokyny">
+            <li><span data-edit-field="polozka" data-edit-label="Pokyn">Zahraniční platební příkaz zadejte v měně CZK (české koruny).</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Pokyn">U bankovních poplatků zvolte variantu OUR (veškeré poplatky hradí plátce).</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Pokyn">Pokud variantu OUR vaše banka nenabízí, platbu navyšte o bankovní poplatky ve výši 150 Kč.</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Pokyn">Případný rozdíl mezi uhrazenou a požadovanou částkou bude nutné doplatit při registraci na konferenci.</span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -174,14 +190,19 @@ const partners = [
   <section class="section tint" id="aktivni-ucast">
     <div class="wrap split">
       <SectionHead eyebrow="Aktivní účast" title="Máte co říct k tématu konference?" edit="kondept.aktivni.nadpis" editLabel="Aktivní účast: nadpis">
-        <p class="muted">Dáme vám prostor a slevu z registračního poplatku. Prostor pro aktivní účast necháváme otevřený – bez pevné definice, aby mohl organicky vyrůst z toho, co přinesete vy sami.</p>
         <div class="actions">
           <a class="btn" href={ABSTRACT_URL} target="_blank" rel="noopener">Vložit abstrakt ↗</a>
         </div>
       </SectionHead>
       <div data-reveal style="--i:1">
-        <p>Je určen každému, kdo chce představit inspirativní zkušenost, téma, kazuistiku, výzkum či vlastní projekt z oblasti dětské psychoterapie. Vše, co je vaším odborným i lidským zdrojem v práci s dětmi a rodinami, může být cenným podnětem pro ostatní.</p>
-        <h4>Důležitá data</h4>
+        <div data-edit="kondept.aktivni.text" data-edit-label="Aktivní účast: text">
+          <p class="lede">Zveme vás k aktivní účasti na 2. české konferenci dětské psychoterapie</p>
+          <p>Cílem konference je i nadále propojovat a posilovat čtyři základní pilíře dětské psychoterapie: METODY – VZTAH – RODINA – SEBEPÉČE</p>
+          <p>Program konference bude tvořen odbornými přednáškami, workshopy a diskuzemi, které tyto pilíře rozvíjejí.</p>
+          <p>Stejně jako v minulém ročníku zůstává otevřený prostor pro aktivní účast — bez pevné definice, aby mohl organicky vyrůst z toho, co přinesete vy sami. Je určen každému, kdo chce představit inspirativní zkušenost, téma, kazuistiku, výzkum či vlastní projekt z oblasti dětské psychoterapie.</p>
+          <p>Jste srdečně vítáni. Vše, co je vaším odborným i lidským zdrojem v práci s dětmi a rodinami, může být cenným podnětem pro ostatní. Přijďme sdílet, posilovat se navzájem a společně pokračovat v budování odborné komunity, kterou děti i jejich rodiny tolik potřebují.</p>
+        </div>
+        <h4 style="margin-top:clamp(2.5rem, 5vw, 3.5rem)">Důležitá data</h4>
         <ul class="dates" data-edit="kondept.aktivni.terminy" data-edit-type="list" data-edit-label="Aktivní účast: důležitá data">
           <li><b data-edit-field="datum" data-edit-label="Datum">1. 11. 2026</b><span data-edit-field="popis" data-edit-label="Co se děje">otevření příjmu abstraktů</span></li>
           <li><b data-edit-field="datum" data-edit-label="Datum">15. 1. 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">uzávěrka příjmu abstraktů</span></li>
@@ -199,7 +220,10 @@ const partners = [
               <tr><td>Příspěvek 180 min, jeden autor</td><td>3 000 Kč</td></tr>
               <tr><td>Příspěvek 180 min, více autorů (každý)</td><td>1 500 Kč</td></tr>
             </tbody></table>
-            <p class="muted" style="margin-top:1rem">Slevy za jednotlivé příspěvky se sčítají. Je také možné přijet, přednést svůj příspěvek a opět odjet, za honorář ve výši slevy. Aktivní účastníci budou vyzváni k předregistraci, a mají tak zajištěné místo.</p>
+            <h4 style="margin-top:1.5rem">Kalkulace slevy pro aktivní účastníky</h4>
+            <p>Jeden prezentující má slevu 1 500 Kč za každý svůj samostatný příspěvek 45 – 90 min. Pokud má příspěvek dva a více prezentujících, má každý z nich slevu 750 Kč. Slevy za jednotlivé příspěvky se u jednoho prezentujícího sčítají.</p>
+            <p>Příklad: Na konferenci budu mít jednu samostatnou přednášku (sleva 1 500 Kč) a jeden 180 min workshop vedený společně s kolegou (sleva 1 500 Kč). Celková sleva na registračním poplatku tedy činí 3 000 Kč.</p>
+            <p class="muted" style="margin-top:1rem">Je také možné přijet, přednést svůj příspěvek a opět odjet, za honorář ve výši slevy. Aktivní účastníci budou vyzváni k předregistraci, a mají tak zajištěné místo.</p>
           </div>
         </details>
         <details class="fold">
@@ -236,9 +260,6 @@ const partners = [
       <SectionHead eyebrow="Partneři" title="Partneři konference">
         <p class="muted">Staňte se partnerem 2. české konference dětské psychoterapie – napište nám na <a href="mailto:info@kondept.cz">info@kondept.cz</a>.</p>
       </SectionHead>
-      <div class="logos" data-reveal>
-        {partners.map((p) => <a href={p.url} target="_blank" rel="noopener" title={p.name}><img src={p.img} alt={p.name} loading="lazy" /></a>)}
-      </div>
     </div>
   </section>
 
@@ -282,7 +303,7 @@ const partners = [
     <div class="wrap">
       <SectionHead eyebrow="Ohlédnutí" title="Ozvěny 1. české konference dětské psychoterapie 2025" />
       <div class="photos" data-reveal>
-        {[m.kd1, m.kd2, m.kd3, m.kd4, m.kd5, m.kd6].map((src) => <img src={src} alt="Konference KONDEPT 2025" loading="lazy" width="800" height="600" />)}
+        {photos.map((src) => <img src={src} alt="Konference KONDEPT 2025" loading="lazy" width="800" height="600" />)}
       </div>
       <div class="quotes grid grid-3">
         {quotes.map(([q, a], i) => (
