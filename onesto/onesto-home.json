@@ -1,0 +1,265 @@
+{
+  "onesto": 1,
+  "page": {
+    "path": "/",
+    "title": "Hlavní stránka",
+    "fields": [
+      {
+        "key": "uvod.fotka",
+        "type": "image",
+        "label": "Úvod: velká fotka",
+        "default": {
+          "src": "http://localhost:8765/media/2023/06/DSC_0579-2.webp",
+          "alt": ""
+        }
+      },
+      {
+        "key": "uvod.radek1",
+        "type": "text",
+        "label": "Úvod: nadpis, 1. řádek",
+        "default": "Vaše téma."
+      },
+      {
+        "key": "uvod.radek2",
+        "type": "text",
+        "label": "Úvod: nadpis, 2. řádek (barevný)",
+        "default": "Naše zkušenost."
+      },
+      {
+        "key": "uvod.radek3",
+        "type": "text",
+        "label": "Úvod: nadpis, 3. řádek",
+        "default": "Společný smysl."
+      },
+      {
+        "key": "konference.nadpis",
+        "type": "text",
+        "label": "Konference: nadpis",
+        "default": "Kam se chystáme"
+      },
+      {
+        "key": "konference.nadpis2",
+        "type": "text",
+        "label": "Konference: nadpis, barevná část",
+        "default": "v roce 2027"
+      },
+      {
+        "key": "konference.seznam",
+        "type": "list",
+        "label": "Konference: konference na hlavní stránce",
+        "default": [
+          {
+            "stitek": "Gestalt Tábor 2027",
+            "podtitul": "8. konference gestalt psychoterapie",
+            "odkaz": {
+              "href": "/setkani-v-pohybu/",
+              "text": "Setkání v pohybu"
+            },
+            "kdy": "6.–9. května 2027",
+            "kde": "Tábor",
+            "fotka": {
+              "src": "http://localhost:8765/media/2026/01/bg_header-in.webp",
+              "alt": ""
+            }
+          },
+          {
+            "stitek": "Kondept 2027",
+            "podtitul": "Metody – vztah – rodina – sebepéče",
+            "odkaz": {
+              "href": "/kondept2/",
+              "text": "2. česká konference dětské psychoterapie"
+            },
+            "kdy": "30. září – 2. října 2027",
+            "kde": "Kongres Hotel Jezerka, Seč",
+            "fotka": {
+              "src": "http://localhost:8765/media/2024/08/bg.webp",
+              "alt": ""
+            }
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "stitek",
+            "type": "text",
+            "label": "Štítek (vlevo nahoře)"
+          },
+          {
+            "name": "podtitul",
+            "type": "text",
+            "label": "Text nad názvem"
+          },
+          {
+            "name": "odkaz",
+            "type": "link",
+            "label": "Název a kam karta vede"
+          },
+          {
+            "name": "kdy",
+            "type": "text",
+            "label": "Kdy"
+          },
+          {
+            "name": "kde",
+            "type": "text",
+            "label": "Kde"
+          },
+          {
+            "name": "fotka",
+            "type": "image",
+            "label": "Fotka"
+          }
+        ]
+      },
+      {
+        "key": "onas.nadpis",
+        "type": "text",
+        "label": "O nás: nadpis",
+        "default": "Kongresy a konference, které dávají smysl"
+      },
+      {
+        "key": "onas.uvod",
+        "type": "text",
+        "label": "O nás: úvodní odstavec (větší písmo)",
+        "default": "Stojíme za prestižními českými i mezinárodními konferencemi a kongresy, kde se potkává špičkový obsah, precizní organizace a lidský přístup."
+      },
+      {
+        "key": "onas.text",
+        "type": "rich",
+        "label": "O nás: další odstavce",
+        "default": "<p data-astro-cid-lcdefpme>Za dobu našeho působení jsme realizovali desítky konferencí – od komorních odborných setkání až po rozsáhlé mezinárodní kongresy. Spolupracujeme s významnými českými i zahraničními institucemi, profesními organizacemi, terapeuty, akademiky i neziskovým sektorem. Každou akci chápeme jako jedinečný živý organismus, který si zaslouží citlivý přístup, precizní organizaci a respekt k hodnotám oboru.</p><p data-astro-cid-lcdefpme>Naší silnou stránkou je hluboké porozumění tématům psychologie a psychoterapie. Víme, že odborný obsah, bezpečný prostor a kvalitní lidské setkání jsou stejně důležité jako bezchybná logistika, technické zajištění a profesionální komunikace.</p><p data-astro-cid-lcdefpme>Evera není jen organizační agentura. Jsme partnerem, který naslouchá, přemýšlí v souvislostech a pomáhá proměňovat vize v dobře fungující a smysluplné události.</p>"
+      },
+      {
+        "key": "duvody.nadpis",
+        "type": "text",
+        "label": "Proč s Everou: nadpis",
+        "default": "Proč připravit konferenci s Everou"
+      },
+      {
+        "key": "duvody.seznam",
+        "type": "list",
+        "label": "Proč s Everou: důvody",
+        "default": [
+          {
+            "nazev": "Odborný obsah",
+            "popis": "Rozumíme oboru, ve kterém akce vzniká, a mluvíme řečí jeho lidí."
+          },
+          {
+            "nazev": "Bezpečný prostor",
+            "popis": "Vytváříme prostředí, kde se lidé mohou skutečně potkat."
+          },
+          {
+            "nazev": "Precizní organizace",
+            "popis": "Logistika, technika, registrace i komunikace pod jednou střechou."
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "nazev",
+            "type": "text",
+            "label": "Název"
+          },
+          {
+            "name": "popis",
+            "type": "text",
+            "label": "Popis"
+          }
+        ]
+      },
+      {
+        "key": "tym.nadpis",
+        "type": "text",
+        "label": "Kdo jsme: nadpis",
+        "default": "Kdo jsme"
+      },
+      {
+        "key": "tym.lide",
+        "type": "list",
+        "label": "Kdo jsme: lidé",
+        "default": [
+          {
+            "fotka": {
+              "src": "http://localhost:8765/media/2026/01/F-159-F10-400x400-1.webp",
+              "alt": "Veronika Fišerová, DiS."
+            },
+            "jmeno": "Veronika Fišerová, DiS.",
+            "funkce": "ředitelka a zakladatelka, Evera Agency",
+            "popis": "Založila a vede kongresovou a incomingovou agenturu Evera Agency. Je podepsána pod organizací mnoha mezinárodních i českých konferencí (Open Society Found 2005, EECERA 2006, Česká gestalt konference 2016 a 2024 aj.). Je diplomovaná specialistka v oboru management cestovního ruchu, kde působí od roku 1998. V letech 2011–2019 založila a vedla sociální podnik Fair Food Club. Za pandemie covidu se rekvalifikovala na pracovnici v sociálních službách a pracovala jako asistentka dětí s kombinovaným handicapem."
+          },
+          {
+            "fotka": {
+              "src": "http://localhost:8765/media/2026/01/F-349-400x400-1.webp",
+              "alt": "Bc. Karel Fišer"
+            },
+            "jmeno": "Bc. Karel Fišer",
+            "funkce": "výkonný ředitel a zakladatel, Evera Agency",
+            "popis": "Spoluzakladatel agentury Evera Agency. Vystudoval FHS UK v Praze, má za sebou spoustu humanitární práce (projekt OSN pro uprchlíky, projekt Help povodně 2002 aj.). Jako organizátor a PR manažer má na kontě stovky akcí (např. Nadace D. a V. Havlových VIZE 97). Je členem ČAP, absolvoval mj. výcvik v integrativní gestalt psychoterapii. Od roku 2013 působí jako psychoterapeut v pražském Programu Pilot a provozuje vlastní praxi."
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "fotka",
+            "type": "image",
+            "label": "Fotka"
+          },
+          {
+            "name": "jmeno",
+            "type": "text",
+            "label": "Jméno"
+          },
+          {
+            "name": "funkce",
+            "type": "text",
+            "label": "Funkce"
+          },
+          {
+            "name": "popis",
+            "type": "text",
+            "label": "Krátký životopis"
+          }
+        ]
+      },
+      {
+        "key": "kontakt.nadpis",
+        "type": "text",
+        "label": "Kontakt: nadpis",
+        "default": "Pojďme spolu připravit vaši konferenci"
+      },
+      {
+        "key": "kontakt.text",
+        "type": "text",
+        "label": "Kontakt: text pod nadpisem",
+        "default": "Ozvěte se nám – rádi se potkáme a probereme, co potřebujete."
+      },
+      {
+        "key": "paticka.popis",
+        "type": "text",
+        "label": "Patička (na všech stránkách): popis pod logem",
+        "default": "Odborná setkání v oblasti psychologie, psychoterapie a sociální práce."
+      },
+      {
+        "key": "paticka.telefon",
+        "type": "link",
+        "label": "Patička (na všech stránkách): telefon",
+        "default": {
+          "href": "tel:+420731573668",
+          "text": "+420 731 573 668"
+        }
+      },
+      {
+        "key": "paticka.email",
+        "type": "link",
+        "label": "Patička (na všech stránkách): e-mail",
+        "default": {
+          "href": "mailto:info@evera.cz",
+          "text": "info@evera.cz"
+        }
+      },
+      {
+        "key": "paticka.adresa",
+        "type": "text",
+        "label": "Patička (na všech stránkách): adresa",
+        "default": "Branická 230/115, Praha 4"
+      }
+    ]
+  }
+}

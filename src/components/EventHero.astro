@@ -7,24 +7,29 @@ interface Props {
   where: string;
   image: string;
   imageAlt?: string;
+  /** Onesto: předpona klíčů upravitelných částí (např. "setkani"); bez ní nejde nic upravit. */
+  edit?: string;
 }
-const { eyebrow, title, subtitle, when, where, image, imageAlt = '' } = Astro.props;
+const { eyebrow, title, subtitle, when, where, image, imageAlt = '', edit } = Astro.props;
+/** Atributy pro Onesto: klíč `<edit>.uvod.<part>` a srozumitelný název pro klienta. */
+const e = (part: string, label: string, type?: string) =>
+  edit ? { 'data-edit': `${edit}.uvod.${part}`, 'data-edit-label': `Úvod: ${label}`, ...(type ? { 'data-edit-type': type } : {}) } : {};
 ---
 <section class="ehero">
   <div class="wrap">
     <div class="ehero-text hero-in">
-      <span class="kicker">{eyebrow}</span>
-      <h1>{title}</h1>
-      {subtitle && <p class="lede">{subtitle}</p>}
+      <span class="kicker" {...e('nadtitulek', 'text nad nadpisem')}>{eyebrow}</span>
+      <h1 {...e('nadpis', 'hlavní nadpis')}>{title}</h1>
+      {subtitle && <p class="lede" {...e('podnadpis', 'text pod nadpisem')}>{subtitle}</p>}
       <dl class="facts">
-        <div><dt>Kdy</dt><dd>{when}</dd></div>
-        <div><dt>Kde</dt><dd>{where}</dd></div>
+        <div><dt>Kdy</dt><dd {...e('kdy', 'kdy se konference koná')}>{when}</dd></div>
+        <div><dt>Kde</dt><dd {...e('kde', 'kde se konference koná')}>{where}</dd></div>
       </dl>
       <div class="actions"><slot /></div>
     </div>
   </div>
   <div class="wrap ehero-media">
-    <img src={image} alt={imageAlt} width="1140" height="312" fetchpriority="high" />
+    <img src={image} alt={imageAlt} width="1140" height="312" fetchpriority="high" {...e('obrazek', 'velký obrázek', 'image')} />
   </div>
 </section>
 

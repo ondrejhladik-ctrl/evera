@@ -1,0 +1,249 @@
+{
+  "onesto": 1,
+  "page": {
+    "path": "/setkani-v-pohybu/",
+    "title": "Setkání v pohybu",
+    "fields": [
+      {
+        "key": "setkani.uvod.nadtitulek",
+        "type": "text",
+        "label": "Úvod: text nad nadpisem",
+        "default": "8. konference gestalt psychoterapie"
+      },
+      {
+        "key": "setkani.uvod.nadpis",
+        "type": "text",
+        "label": "Úvod: hlavní nadpis",
+        "default": "Gestalt Tábor: Setkání v pohybu"
+      },
+      {
+        "key": "setkani.uvod.podnadpis",
+        "type": "text",
+        "label": "Úvod: text pod nadpisem",
+        "default": "Prostor pro setkání a dialog, pro pohyb směrem k sobě i druhým – ale také chvíle ticha a klidu."
+      },
+      {
+        "key": "setkani.uvod.kdy",
+        "type": "text",
+        "label": "Úvod: kdy se konference koná",
+        "default": "6.–9. května 2027"
+      },
+      {
+        "key": "setkani.uvod.kde",
+        "type": "text",
+        "label": "Úvod: kde se konference koná",
+        "default": "Tábor, Hotel Palcát a okolí"
+      },
+      {
+        "key": "setkani.uvod.obrazek",
+        "type": "image",
+        "label": "Úvod: velký obrázek",
+        "default": {
+          "src": "http://localhost:8765/media/2026/01/bg_header-in.webp",
+          "alt": "Tábor s barevnými kruhy – vizuál konference Setkání v pohybu"
+        }
+      },
+      {
+        "key": "setkani.okonferenci.nadpis",
+        "type": "text",
+        "label": "O konferenci: nadpis",
+        "default": "Z nehybnosti se rodí nový pohyb"
+      },
+      {
+        "key": "setkani.okonferenci.uvod",
+        "type": "text",
+        "label": "O konferenci: úvodní odstavec",
+        "default": "Současný svět nás staví před situace, které nelze ignorovat. Zrychlené tempo, polarizace společnosti i environmentální výzvy vstupují do našich životů a terapeutických pracoven."
+      },
+      {
+        "key": "setkani.okonferenci.text",
+        "type": "text",
+        "label": "O konferenci: druhý odstavec",
+        "default": "Jako gestalt terapeuti vnímáme, že z nehybnosti se rodí nový pohyb, ale stejně tak věříme v sílu vědomého zastavení a ticha. Zveme vás k prozkoumání pohybu směrem k sobě, k druhým i k celku, jehož jsme součástí. Rádi budeme pokračovat ve směru, který naše gestalt komunita nabrala na poslední konferenci Gestalt lásky 2024 v Seči."
+      },
+      {
+        "key": "setkani.registrace.nadpis",
+        "type": "text",
+        "label": "Registrace: nadpis",
+        "default": "Registrace"
+      },
+      {
+        "key": "setkani.registrace.oznameni",
+        "type": "text",
+        "label": "Registrace: krátké oznámení pod nadpisem",
+        "default": "Tlačítko registrace pro členy ČSGT aktivujeme 22. listopadu ve 12:00."
+      },
+      {
+        "key": "setkani.registrace.terminy",
+        "type": "list",
+        "label": "Registrace: termíny",
+        "default": [
+          {
+            "datum": "1.–8. 11. 2026",
+            "popis": "předregistrace aktivních účastníků"
+          },
+          {
+            "datum": "22.–29. 11. 2026",
+            "popis": "předregistrace členů ČSGT (od 22. 11. 12:00 do 29. 11. 12:00)"
+          },
+          {
+            "datum": "30. 11. 2026 – 31. 1. 2027",
+            "popis": "včasná registrace (od 30. 11. 12:00 do 31. 1. 12:00)"
+          },
+          {
+            "datum": "1. 2. – 15. 3. 2027",
+            "popis": "registrace"
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "datum",
+            "type": "text",
+            "label": "Datum"
+          },
+          {
+            "name": "popis",
+            "type": "text",
+            "label": "Co se děje"
+          }
+        ]
+      },
+      {
+        "key": "setkani.registrace.ceny",
+        "type": "list",
+        "label": "Registrace: ceník",
+        "default": [
+          {
+            "polozka": "Včasná registrace",
+            "obdobi": "30. 11. 2026 – 31. 1. 2027",
+            "cena": "9 200 Kč"
+          },
+          {
+            "polozka": "Registrace",
+            "obdobi": "1. 2. – 15. 3. 2027",
+            "cena": "10 200 Kč"
+          },
+          {
+            "polozka": "Doprovodná osoba",
+            "obdobi": "vše kromě odborného programu",
+            "cena": "3 600 Kč"
+          },
+          {
+            "polozka": "Sleva – aktivní účastník",
+            "obdobi": "",
+            "cena": "od 500 Kč"
+          },
+          {
+            "polozka": "Sleva – člen ČSGT",
+            "obdobi": "",
+            "cena": "500 Kč"
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "polozka",
+            "type": "text",
+            "label": "Položka"
+          },
+          {
+            "name": "obdobi",
+            "type": "text",
+            "label": "Upřesnění (nepovinné)"
+          },
+          {
+            "name": "cena",
+            "type": "text",
+            "label": "Cena"
+          }
+        ]
+      },
+      {
+        "key": "setkani.registrace.zahrnuje",
+        "type": "list",
+        "label": "Registrace: co poplatek zahrnuje",
+        "default": [
+          {
+            "polozka": "odborný program – 4 dny, přibližně 30 vzdělávacích hodin"
+          },
+          {
+            "polozka": "doprovodný program včetně tří večerních programů"
+          },
+          {
+            "polozka": "6 kávových přestávek"
+          },
+          {
+            "polozka": "večeři ve čtvrtek, oběd a večeři v pátek, oběd a večerní raut v sobotu"
+          },
+          {
+            "polozka": "kredity pro vzdělávání"
+          },
+          {
+            "polozka": "audiovizuální nahrávku přednášek z hlavního sálu"
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "polozka",
+            "type": "text",
+            "label": "Co je v ceně"
+          }
+        ]
+      },
+      {
+        "key": "setkani.program.nadpis",
+        "type": "text",
+        "label": "Program: nadpis",
+        "default": "Program a akreditace"
+      },
+      {
+        "key": "setkani.otazky.nadpis",
+        "type": "text",
+        "label": "Časté otázky: nadpis",
+        "default": "Časté otázky"
+      },
+      {
+        "key": "setkani.otazky.seznam",
+        "type": "list",
+        "label": "Časté otázky: otázky a odpovědi",
+        "default": [
+          {
+            "otazka": "Kdy se konference koná?",
+            "odpoved": "<p>6.–9. května 2027 (čtvrtek až neděle).</p>"
+          },
+          {
+            "otazka": "Kde se konference koná?",
+            "odpoved": "<p>Hlavním místem konání je <strong>Hotel Palcát</strong>, konferenční hotel v blízkosti historického centra Tábora. Další konferenční prostory poskytují <strong>Spolkový dům Střelnice</strong>, <strong>Divadlo Oskara Nedbala Tábor</strong> a <strong>komunitní prostor Truhlárna</strong> – všechny jen 5 minut chůze od hotelu, takže je lze pohodlně využít pro paralelní program.</p>"
+          },
+          {
+            "otazka": "Kdy konference začíná a končí?",
+            "odpoved": "<p>Zahájení úvodním slovem organizátorů je ve čtvrtek 6. května 2027 ve 13:30. Konference končí závěrečným slovem v neděli 9. května 2027 ve 13:00.</p>"
+          },
+          {
+            "otazka": "Jaké jsou storno podmínky?",
+            "odpoved": "<p>Storno do 31. ledna 2027 bez poplatku. Od 1. února 2027 účtujeme 100 % uhrazené částky, případně můžete najít náhradníka.</p>"
+          },
+          {
+            "otazka": "Jak se přihlásím na jednotlivé přednášky a workshopy?",
+            "odpoved": "<p>Přihlašování na přednášky a workshopy bude spuštěno 15. března 2027 v aplikaci Eventee.</p>"
+          },
+          {
+            "otazka": "Je konference akreditovaná?",
+            "odpoved": "<p>Organizátoři požádali o akreditaci u AKP ČR a ČLK JEP. Podrobnosti najdete v části <a href=\"#program\">Program a akreditace</a>.</p>"
+          }
+        ],
+        "itemFields": [
+          {
+            "name": "otazka",
+            "type": "text",
+            "label": "Otázka"
+          },
+          {
+            "name": "odpoved",
+            "type": "rich",
+            "label": "Odpověď"
+          }
+        ]
+      }
+    ]
+  }
+}

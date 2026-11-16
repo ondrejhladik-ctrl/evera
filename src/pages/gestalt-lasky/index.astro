@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro';
+import EventHero from '../../components/EventHero.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import m from '../../data/media.json';
+import { NAV, LOGO, VIDEO, DOPIS, PHOTOS, TEAM } from '../../data/lasky';
+---
+<Base
+  title="Gestalt lásky 2024 | 7. konference gestalt psychoterapie"
+  description="7. konference gestalt psychoterapie GESTALT LÁSKY, 3.–5. května 2024, Kongres hotel Jezerka, Seč. Program, sborník, fotografie a video."
+  theme="lasky"
+  nav={NAV}
+  logo={LOGO}
+  logoAlt="Gestalt lásky"
+  homeHref="/gestalt-lasky/"
+>
+  <EventHero
+    eyebrow="7. konference gestalt psychoterapie"
+    title="Gestalt lásky"
+    subtitle="Akce již proběhla."
+    when="3.–5. května 2024"
+    where="Kongres hotel Jezerka, Seč"
+    image={m.heroLasky}
+    imageAlt="Vizuál konference Gestalt lásky"
+  >
+    <a class="btn" href="#fotografie">Fotografie <span class="arrow">→</span></a>
+    <a class="btn ghost" href={VIDEO} target="_blank" rel="noopener">Video Gestalt lásky 2024 ↗</a>
+  </EventHero>
+
+  <!-- O KONFERENCI -->
+  <section class="section" id="o-konferenci">
+    <div class="wrap split">
+      <SectionHead title="O konferenci" />
+      <div class="prose" data-reveal style="--i:1">
+        <blockquote class="motto">
+          <p>„Naše planeta nepotřebuje více úspěšných lidí. Zoufale potřebuje ty, kteří tvoří mír, léčí, obnovují, vyprávějí příběhy a milují vše živé.“</p>
+          <cite>Dalajláma</cite>
+        </blockquote>
+        <p>Vážené kolegyně, vážení kolegové,<br />srdečně Vás zveme k účasti na 7. české konferenci Gestalt psychoterapie, GESTALT LÁSKY 2024. Přijďte si užít společné setkání plné vzájemné inspirace, podpory, humoru, tance a pospolitosti!</p>
+        <p>Během třiceti let svého života získala česká Gestalt komunita obrovský potenciál. Je nám ctí, že vytváříme prostor pro setkání tohoto společenství. Přejeme si, aby byla konference podporou tolik potřebnou pro náročnou a důležitou činnost, kterou psychoterapie a práce s lidmi zaujímá ve společnosti.</p>
+        <p>V roce 2020 jsme se poprvé zamýšleli nad tématem 7. Gestalt konference. Měla se původně konat v roce 2021 a termín vycházel na 30. dubna, tedy předvečer svátku lásky. Symbolika čarovné noci 30. dubna a následující 1. máj nás tehdy jasně navedly na téma lásky.</p>
+        <p>Když jsme pak kvůli covidové pandemii v našich on-line setkáních opakovaně posouvali termín konání konference, stalo se téma lásky, soudržnosti, naděje a vzájemné podpory tématem i nadále spojujícím, tématem posilujícím v atmosféře obav, nejistot a společenské polarizace.</p>
+        <p>Pandemická vlna doznívala a zatímco my se rozhodli vyčkat na dobu, kdy se budeme konečně moci naživo potkat, v Evropě v naší těsné blízkosti se rozhořela válka. Opět jsme vnímali vlnu lásky – soucitu, sounáležitosti, otevření srdcí pro pomoc, domovů pro přijetí utíkajících před boji. A také znovu velkého strachu, agrese, rozdělení.</p>
+        <p>Až budeme na začátku května 2024 zahajovat naši Sedmou konferenci, budeme mít za sebou zkušenosti, které valná většina z nás buď neznala vůbec, nebo jen z vyprávění či z dějepisu.</p>
+        <p>A tak pojďme společně zvednout téma lásky a jejích podob v kontextu těchto zkušeností osobních i profesních, v kontextu terapeutické práce a Gestalt modality.</p>
+        <p>Téma konference je GESTALT LÁSKY, inspirací nám byl nejen původní termín konference, ale rádi bychom věnovali toto setkání všemu, na čem je Gestalt terapie založena, tedy dialogu, vztahové podstatě setkání terapeuta s klientem, párové, rodinné a skupinové terapii.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="section tint" id="program">
+    <div class="wrap">
+      <SectionHead title="Program konference 2024">
+        <div class="actions">
+          <a class="btn" href={m.pdfLasky} target="_blank" rel="noopener">Program ke stažení (PDF)</a>
+          <a class="btn ghost" href={m.pdfLaskySbornik} target="_blank" rel="noopener">Sborník ke stažení (PDF)</a>
+          <a class="btn ghost" href={DOPIS} target="_blank" rel="noopener">Informační dopis (PDF)</a>
+          <a class="btn ghost" href={VIDEO} target="_blank" rel="noopener">Video ↗</a>
+        </div>
+      </SectionHead>
+    </div>
+  </section>
+
+  <!-- INFORMACE -->
+  <section class="section" id="informace">
+    <div class="wrap split">
+      <SectionHead title="Informace" />
+      <div data-reveal style="--i:1">
+        <h3>Kde se konference koná?</h3>
+        <p class="muted">Konference se koná ve čtyřhvězdičkovém hotelu na samotě u Sečské přehrady v Pardubickém kraji. Vybrali jsme pro vás opět toto komfortní místo se skvělým wellness centrem, obklopené přírodou, na základě skvělých zkušeností z roku 2017, kdy jsme zde pořádali 5. českou konferenci Gestalt psychoterapie „Pátý element: Setkání“.</p>
+        <h3>Je konference akreditovaná?</h3>
+        <p class="muted">Akce je akreditovaná AKP ČR a ČLK JEP.</p>
+        <h3>Jaký bude doprovodný program?</h3>
+        <p class="muted">Ani letos nezapomínáme na důležitost doprovodného programu. Svou účast opět přislíbili šťavnatí Juicy Freak s geniální zpěvačkou Annamáriou d’Almaidou – vítězkou soutěže The Voice Česko Slovensko 2019.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O NÁS -->
+  <section class="section tint" id="o-nas">
+    <div class="wrap">
+      <SectionHead title="O nás">
+        <p class="muted">Konferenci Gestalt lásky 2024 pořádá institut IVGT ve spolupráci s agenturou Evera.</p>
+      </SectionHead>
+      <h3 class="sub">Přípravný tým IVGT</h3>
+      <div class="grid grid-2">
+        {TEAM.map((p, i) => (
+          <div class="person" data-reveal style={`--i:${i % 2}`}>
+            <img src={p.img} alt={p.name} loading="lazy" width="110" height="110" />
+            <div><h4>{p.name}</h4><p class="muted">{p.bio}</p></div>
+          </div>
+        ))}
+      </div>
+      <h3 class="sub">Organizátor</h3>
+      <div class="grid grid-2">
+        <div class="person" data-reveal>
+          <img src={m.veronika} alt="Veronika Fišerová" loading="lazy" width="110" height="110" />
+          <div><h4>Veronika Fišerová, DiS.</h4><p class="muted">ředitelka a zakladatelka, Evera Agency</p></div>
+        </div>
+        <div class="person" data-reveal style="--i:1">
+          <img src={m.karel} alt="Karel Fišer" loading="lazy" width="110" height="110" />
+          <div><h4>Bc. Karel Fišer</h4><p class="muted">výkonný ředitel a zakladatel, Evera Agency</p></div>
+        </div>
+      </div>
+      <p class="contact" data-reveal>Odborné i organizační dotazy posílejte písemně e-mailem na <a href="mailto:info@evera.cz">info@evera.cz</a>.<br />Kontakt: Veronika Fišerová, <a href="tel:+420731573668">731 573 668</a></p>
+    </div>
+  </section>
+
+  <!-- FOTOGRAFIE -->
+  <section class="section" id="fotografie">
+    <div class="wrap">
+      <SectionHead title="Fotografie Gestalt lásky 2024" />
+      <ul class="gallery">
+        {PHOTOS.map((p, i) => (
+          <li>
+            <a href={p.l} data-i={i}>
+              <img src={p.s} alt={`Gestalt lásky 2024, fotografie ${i + 1}`} loading="lazy" width="800" height="533" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="actions" data-reveal>
+        <a class="btn ghost" href={VIDEO} target="_blank" rel="noopener">Video Gestalt lásky 2024 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="lightbox" aria-label="Fotografie">
+    <img alt="" />
+    <button class="lb-close" type="button" aria-label="Zavřít">×</button>
+    <button class="lb-prev" type="button" aria-label="Předchozí">←</button>
+    <button class="lb-next" type="button" aria-label="Další">→</button>
+  </dialog>
+</Base>
+
+<script>
+  // Jednoduchý prohlížeč fotek: klik na fotku otevře větší verzi, šipky / klávesy listují, Esc zavírá.
+  const dlg = document.querySelector<HTMLDialogElement>('.lightbox');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.gallery a')];
+  if (dlg && links.length) {
+    const img = dlg.querySelector('img')!;
+    let cur = 0;
+    const show = (i: number) => {
+      cur = (i + links.length) % links.length;
+      img.src = links[cur].href;
+      img.alt = links[cur].querySelector('img')?.alt ?? '';
+    };
+    links.forEach((a, i) => a.addEventListener('click', (e) => { e.preventDefault(); show(i); dlg.showModal(); }));
+    dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+    dlg.querySelector('.lb-prev')!.addEventListener('click', () => show(cur - 1));
+    dlg.querySelector('.lb-next')!.addEventListener('click', () => show(cur + 1));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(cur - 1);
+      if (e.key === 'ArrowRight') show(cur + 1);
+    });
+  }
+</script>
+
+<style>
+  .motto { margin: 0 0 2.5rem; padding: 0; }
+  .motto p { margin: 0 0 0.5rem; }
+  .motto cite { font-style: normal; color: var(--accent); font-weight: 600; }
+  .prose p { max-width: 46rem; }
+
+  :global(main) h3.sub { margin-top: clamp(3.5rem, 7vw, 5rem); margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+  :global(main) h3.sub:first-of-type { margin-top: 0; }
+  .contact { margin-top: clamp(3rem, 6vw, 4.5rem); }
+
+  .gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+  .gallery li { margin: 0; }
+  .gallery a { display: block; overflow: hidden; background: var(--paper-2); }
+  .gallery img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .gallery a:hover img { transform: scale(1.03); }
+
+  .lightbox { padding: 0; border: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; }
+  .lightbox::backdrop { background: rgb(10 14 16 / 0.92); }
+  .lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  .lightbox img { max-width: min(92vw, 1600px); max-height: 86vh; object-fit: contain; }
+  .lightbox button { position: fixed; background: none; border: 0; color: #fff; font-size: 2rem; line-height: 1; padding: 1rem; cursor: pointer; }
+  .lb-close { top: 0.5rem; right: 0.75rem; }
+  .lb-prev { left: 0.5rem; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 0.5rem; top: 50%; transform: translateY(-50%); }
+</style>

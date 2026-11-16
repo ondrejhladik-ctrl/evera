@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 /** /sitemap.xml – veřejné stránky webu (statický seznam, prerender). */
 export const prerender = true;
 
-const PAGES = ['/', '/setkani-v-pohybu/', '/setkani-v-pohybu/prezentujici/', '/kondept2/', '/kondept2/prezentujici/'];
+const PAGES = ['/', '/setkani-v-pohybu/', '/setkani-v-pohybu/prezentujici/', '/kondept2/', '/kondept2/prezentujici/', '/gestalt-lasky/'];
 
 export const GET: APIRoute = ({ site }) => {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');

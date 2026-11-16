@@ -1,0 +1,23 @@
+---
+/**
+ * Bubliny – grafický prvek konference Setkání v pohybu. Čistě dekorativní vrstva po stranách
+ * obsahového sloupce (na užších obrazovkách se skryje). Stačí ji smazat ze sekce a zmizí.
+ * Každá bublina: [barva, velikost v rem, vodorovná pozice, svislá pozice v %].
+ */
+interface Props { set?: 1 | 2 | 3 | 4 }
+const { set = 1 } = Astro.props;
+type B = [string, number, string, number];
+const sets: Record<number, B[]> = {
+  1: [['blue', 3.2, 'left:6%', 18], ['soap', 7, 'left:3%', 52], ['red', 1.1, 'left:12%', 78], ['light', 4.5, 'right:5%', 30], ['soap2', 3.5, 'right:10%', 70]],
+  2: [['red', 2.6, 'right:7%', 14], ['soap', 8, 'right:3%', 48], ['light', 1.4, 'left:8%', 30], ['blue', 1.6, 'left:5%', 74]],
+  3: [['light', 3.8, 'left:5%', 12], ['soap2', 5, 'left:9%', 58], ['blue', 1.2, 'right:9%', 24], ['red', 3, 'right:5%', 66]],
+  4: [['soap', 6, 'left:4%', 20], ['red', 1.4, 'left:10%', 64], ['blue', 4, 'right:6%', 40], ['white', 2, 'right:12%', 80]],
+};
+---
+<div class="bubbles" aria-hidden="true">
+  {sets[set].map(([c, s, x, y], i) => (
+    c.startsWith('soap')
+      ? <img class="bub soap" src={c === 'soap' ? '/media/2026/11/bublina-01.webp' : '/media/2026/11/bublina-02.webp'} alt="" width="400" height="400" loading="lazy" style={`width:${s}rem;height:${s}rem;${x};top:${y}%;animation-delay:-${i * 3}s`} />
+      : <span class={`bub ${c}`} style={`width:${s}rem;height:${s}rem;${x};top:${y}%;animation-delay:-${i * 3}s`}></span>
+  ))}
+</div>

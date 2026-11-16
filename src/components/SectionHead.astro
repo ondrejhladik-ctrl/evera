@@ -1,9 +1,17 @@
 ---
-interface Props { eyebrow?: string; title: string; id?: string }
-const { title } = Astro.props;
+interface Props {
+  eyebrow?: string;
+  title: string;
+  id?: string;
+  /** Onesto: klíč nadpisu (např. "setkani.registrace.nadpis"); bez něj nejde upravit. */
+  edit?: string;
+  /** Onesto: název pro klienta, např. "Registrace: nadpis". */
+  editLabel?: string;
+}
+const { title, edit, editLabel } = Astro.props;
 ---
 <div class="shead">
-  <h2 data-title>{title}</h2>
+  <h2 data-title>{edit ? <span data-edit={edit} data-edit-label={editLabel ?? edit}>{title}</span> : title}</h2>
   <div class="shead-body" data-reveal><slot /></div>
 </div>
 <style>

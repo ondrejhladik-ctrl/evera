@@ -62,6 +62,7 @@ const partners = [
   title="2. česká konference dětské psychoterapie 2027 | KONDEPT"
   description="2. česká konference dětské psychoterapie – Metody, vztah, rodina, sebepéče. 30. září – 2. října 2027, Kongres Hotel Jezerka, Seč."
   theme="kondept"
+  onestoPage="Kondept"
   nav={NAV}
   logo={m.logoKondept}
   logoAlt="Kondept – konference dětské psychoterapie"
@@ -69,6 +70,7 @@ const partners = [
   cta={{ label: 'Vložit abstrakt', href: ABSTRACT_URL }}
 >
   <EventHero
+    edit="kondept"
     eyebrow="2. česká konference dětské psychoterapie"
     title="Metody – vztah – rodina – sebepéče"
     subtitle="Setkání, které posiluje komunitu dětských psychoterapeutů a čtyři pilíře naší profese."
@@ -86,8 +88,8 @@ const partners = [
     <div class="wrap split">
       <SectionHead title="O konferenci" />
       <div data-reveal style="--i:1">
-        <p class="lede">Milé kolegyně a milí kolegové, pole dětské psychoterapie se stává postupně v naší zemi lépe opečovaným a úrodnějším. Přibývá dětských psychoterapeutů, máme samostatný komplexní výcvik, řadu postgraduálních a specializačních výcviků i samostatnou sekci v rámci České asociace pro psychoterapii.</p>
-        <p class="muted">Konference jsou skvělou příležitostí pro setkání, budování kontaktů a sítí vzájemné důvěry napříč zemí i organizacemi – a pro budování komunity, ve které bude každý dětský psychoterapeut moci cítit své místo, vzájemné vztahy a podporu. Protože to je i to, co potřebují naši dětští klienti.</p>
+        <p class="lede" data-edit="kondept.okonferenci.uvod" data-edit-label="O konferenci: úvodní odstavec">Milé kolegyně a milí kolegové, pole dětské psychoterapie se stává postupně v naší zemi lépe opečovaným a úrodnějším. Přibývá dětských psychoterapeutů, máme samostatný komplexní výcvik, řadu postgraduálních a specializačních výcviků i samostatnou sekci v rámci České asociace pro psychoterapii.</p>
+        <p class="muted" data-edit="kondept.okonferenci.text" data-edit-label="O konferenci: druhý odstavec">Konference jsou skvělou příležitostí pro setkání, budování kontaktů a sítí vzájemné důvěry napříč zemí i organizacemi – a pro budování komunity, ve které bude každý dětský psychoterapeut moci cítit své místo, vzájemné vztahy a podporu. Protože to je i to, co potřebují naši dětští klienti.</p>
       </div>
     </div>
     <div class="wrap">
@@ -107,9 +109,9 @@ const partners = [
   <!-- PREZENTUJÍCÍ – odkaz na samostatnou stránku -->
   <section class="section tint" id="prezentujici">
     <div class="wrap split">
-      <SectionHead eyebrow="Prezentující" title="Seznam prezentujících připravujeme" />
+      <SectionHead eyebrow="Prezentující" title="Seznam prezentujících připravujeme" edit="kondept.prezentujici.nadpis" editLabel="Prezentující: nadpis" />
       <div data-reveal style="--i:1">
-        <p class="muted">Jakmile odborná rada vybere příspěvky, zveřejníme prezentující i anotace na samostatné stránce. Chcete být mezi nimi? Přihlaste svůj příspěvek.</p>
+        <p class="muted" data-edit="kondept.prezentujici.text" data-edit-label="Prezentující: text">Jakmile odborná rada vybere příspěvky, zveřejníme prezentující i anotace na samostatné stránce. Chcete být mezi nimi? Přihlaste svůj příspěvek.</p>
         <div class="actions">
           <a class="btn" href="/kondept2/prezentujici/">Stránka prezentujících <span class="arrow">→</span></a>
           <a class="btn ghost" href="#aktivni-ucast">Aktivní účast</a>
@@ -121,27 +123,27 @@ const partners = [
   <!-- REGISTRACE -->
   <section class="section" id="registrace">
     <div class="wrap">
-      <SectionHead eyebrow="Registrace a ubytování" title="Registrace" />
+      <SectionHead eyebrow="Registrace a ubytování" title="Registrace" edit="kondept.registrace.nadpis" editLabel="Registrace: nadpis" />
       <div class="grid grid-2">
         <div data-reveal>
           <h3>Termíny registrace</h3>
-          <ul class="dates">
-            <li><b>15.–22. 5. 2027</b><span>předregistrace aktivních účastníků</span></li>
-            <li><b>1. 6. – 31. 7. 2027</b><span>včasná registrace</span></li>
-            <li><b>1.–31. 8. 2027</b><span>registrace</span></li>
+          <ul class="dates" data-edit="kondept.registrace.terminy" data-edit-type="list" data-edit-label="Registrace: termíny">
+            <li><b data-edit-field="datum" data-edit-label="Datum">15.–22. 5. 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">předregistrace aktivních účastníků</span></li>
+            <li><b data-edit-field="datum" data-edit-label="Datum">1. 6. – 31. 7. 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">včasná registrace</span></li>
+            <li><b data-edit-field="datum" data-edit-label="Datum">1.–31. 8. 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">registrace</span></li>
           </ul>
           <h3 style="margin-top:clamp(2.5rem, 5vw, 3.5rem)">Ubytování</h3>
-          <p class="muted">Ubytování v Kongres Hotelu Jezerka bude možné rezervovat při registraci.</p>
+          <p class="muted" data-edit="kondept.registrace.ubytovani" data-edit-label="Registrace: ubytování">Ubytování v Kongres Hotelu Jezerka bude možné rezervovat při registraci.</p>
         </div>
         <div data-reveal style="--i:1">
           <h3>Registrační poplatek</h3>
           <table class="prices">
-            <tbody>
-              <tr><td>Včasná registrace<br /><span class="muted">1. 6. – 31. 7. 2027</span></td><td>8 500 Kč</td></tr>
-              <tr><td>Registrace<br /><span class="muted">1.–31. 8. 2027</span></td><td>9 500 Kč</td></tr>
-              <tr><td>Doprovodná osoba<br /><span class="muted">vše kromě odborného programu</span></td><td>3 500 Kč</td></tr>
-              <tr><td>Sleva – aktivní účastník</td><td>od 750 Kč</td></tr>
-              <tr><td>Sleva – student INDEPT</td><td>1 000 Kč</td></tr>
+            <tbody data-edit="kondept.registrace.ceny" data-edit-type="list" data-edit-label="Registrace: ceník">
+              <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Včasná registrace</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)">1. 6. – 31. 7. 2027</span></td><td data-edit-field="cena" data-edit-label="Cena">8 500 Kč</td></tr>
+              <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Registrace</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)">1.–31. 8. 2027</span></td><td data-edit-field="cena" data-edit-label="Cena">9 500 Kč</td></tr>
+              <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Doprovodná osoba</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)">vše kromě odborného programu</span></td><td data-edit-field="cena" data-edit-label="Cena">3 500 Kč</td></tr>
+              <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Sleva – aktivní účastník</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)"></span></td><td data-edit-field="cena" data-edit-label="Cena">od 750 Kč</td></tr>
+              <tr><td><span data-edit-field="polozka" data-edit-label="Položka">Sleva – student INDEPT</span><span class="muted price-note" data-edit-field="obdobi" data-edit-label="Upřesnění (nepovinné)"></span></td><td data-edit-field="cena" data-edit-label="Cena">1 000 Kč</td></tr>
             </tbody>
           </table>
           <p class="small muted">Ceny jsou včetně DPH 21 %. Skupinové registrace: <a href="mailto:info@kondept.cz">info@kondept.cz</a>.</p>
@@ -150,18 +152,18 @@ const partners = [
       <div class="grid grid-2 more-info">
         <div class="card" data-reveal>
           <h3>Poplatek zahrnuje</h3>
-          <ul>
-            <li>odborný program – 3 dny, přibližně 21 vzdělávacích hodin</li>
-            <li>doprovodný program včetně dvou večerních programů</li>
-            <li>4 kávové přestávky</li>
-            <li>oběd a večeři ve čtvrtek, oběd a večerní raut v pátek</li>
-            <li>kredity pro vzdělávání</li>
-            <li>audiovizuální nahrávku přednášek z hlavního sálu</li>
+          <ul data-edit="kondept.registrace.zahrnuje" data-edit-type="list" data-edit-label="Registrace: co poplatek zahrnuje">
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">odborný program – 3 dny, přibližně 21 vzdělávacích hodin</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">doprovodný program včetně dvou večerních programů</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">4 kávové přestávky</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">oběd a večeři ve čtvrtek, oběd a večerní raut v pátek</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">kredity pro vzdělávání</span></li>
+            <li><span data-edit-field="polozka" data-edit-label="Co je v ceně">audiovizuální nahrávku přednášek z hlavního sálu</span></li>
           </ul>
         </div>
         <div class="card" data-reveal style="--i:1">
           <h3>Storno a platba ze zahraničí</h3>
-          <p class="small">Storno do 31. 5. 2027 bez poplatku, od 1. 6. 2027 100 % uhrazené částky nebo nalezení náhradníka.</p>
+          <p class="small" data-edit="kondept.registrace.storno" data-edit-label="Registrace: storno podmínky">Storno do 31. 5. 2027 bez poplatku, od 1. 6. 2027 100 % uhrazené částky nebo nalezení náhradníka.</p>
           <p class="small">Platbu ze zahraničí zadejte v CZK a u bankovních poplatků zvolte variantu OUR. Případný rozdíl doplatíte při registraci na místě.</p>
         </div>
       </div>
@@ -171,7 +173,7 @@ const partners = [
   <!-- AKTIVNÍ ÚČAST -->
   <section class="section tint" id="aktivni-ucast">
     <div class="wrap split">
-      <SectionHead eyebrow="Aktivní účast" title="Máte co říct k tématu konference?">
+      <SectionHead eyebrow="Aktivní účast" title="Máte co říct k tématu konference?" edit="kondept.aktivni.nadpis" editLabel="Aktivní účast: nadpis">
         <p class="muted">Dáme vám prostor a slevu z registračního poplatku. Prostor pro aktivní účast necháváme otevřený – bez pevné definice, aby mohl organicky vyrůst z toho, co přinesete vy sami.</p>
         <div class="actions">
           <a class="btn" href={ABSTRACT_URL} target="_blank" rel="noopener">Vložit abstrakt ↗</a>
@@ -180,10 +182,10 @@ const partners = [
       <div data-reveal style="--i:1">
         <p>Je určen každému, kdo chce představit inspirativní zkušenost, téma, kazuistiku, výzkum či vlastní projekt z oblasti dětské psychoterapie. Vše, co je vaším odborným i lidským zdrojem v práci s dětmi a rodinami, může být cenným podnětem pro ostatní.</p>
         <h4>Důležitá data</h4>
-        <ul class="dates">
-          <li><b>1. 11. 2026</b><span>otevření příjmu abstraktů</span></li>
-          <li><b>15. 1. 2027</b><span>uzávěrka příjmu abstraktů</span></li>
-          <li><b>březen 2027</b><span>oznámení o přijetí či nepřijetí</span></li>
+        <ul class="dates" data-edit="kondept.aktivni.terminy" data-edit-type="list" data-edit-label="Aktivní účast: důležitá data">
+          <li><b data-edit-field="datum" data-edit-label="Datum">1. 11. 2026</b><span data-edit-field="popis" data-edit-label="Co se děje">otevření příjmu abstraktů</span></li>
+          <li><b data-edit-field="datum" data-edit-label="Datum">15. 1. 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">uzávěrka příjmu abstraktů</span></li>
+          <li><b data-edit-field="datum" data-edit-label="Datum">březen 2027</b><span data-edit-field="popis" data-edit-label="Co se děje">oznámení o přijetí či nepřijetí</span></li>
         </ul>
         <h4 style="margin-top:clamp(2.5rem, 5vw, 3.5rem)">Formáty příspěvků</h4>
         <ul class="formats">{formats.map((f) => <li>{f}</li>)}</ul>
@@ -216,12 +218,12 @@ const partners = [
   <!-- INFORMACE -->
   <section class="section" id="informace">
     <div class="wrap split">
-      <SectionHead eyebrow="Informace" title="Časté otázky" />
-      <div data-reveal style="--i:1">
+      <SectionHead eyebrow="Informace" title="Časté otázky" edit="kondept.otazky.nadpis" editLabel="Časté otázky: nadpis" />
+      <div data-reveal style="--i:1" data-edit="kondept.otazky.seznam" data-edit-type="list" data-edit-label="Časté otázky: otázky a odpovědi">
         {faq.map(([q, a]) => (
           <details class="fold">
-            <summary>{q}</summary>
-            <div class="fold-body"><p>{a}</p></div>
+            <summary data-edit-field="otazka" data-edit-label="Otázka">{q}</summary>
+            <div class="fold-body"><p data-edit-field="odpoved" data-edit-label="Odpověď">{a}</p></div>
           </details>
         ))}
       </div>

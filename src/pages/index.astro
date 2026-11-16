@@ -3,6 +3,18 @@ import Base from '../layouts/Base.astro';
 import m from '../data/media.json';
 import InquiryForm from '../components/InquiryForm.astro';
 
+/** Konference na hlavní stránce (výchozí obsah; v Onestu je klient může přidávat a měnit). */
+const conferences = [
+  {
+    tag: 'Gestalt Tábor 2027', kicker: '8. konference gestalt psychoterapie', title: 'Setkání v pohybu',
+    when: '6.–9. května 2027', where: 'Tábor', href: '/setkani-v-pohybu/', img: m.heroSetkani,
+  },
+  {
+    tag: 'Kondept 2027', kicker: 'Metody – vztah – rodina – sebepéče', title: '2. česká konference dětské psychoterapie',
+    when: '30. září – 2. října 2027', where: 'Kongres Hotel Jezerka, Seč', href: '/kondept2/', img: m.heroKondept,
+  },
+];
+
 const people = [
   {
     img: m.veronika,
@@ -18,81 +30,76 @@ const people = [
   },
 ];
 ---
-<Base title="Evera – kongresy a konference, které dávají smysl" header="over" preloader>
+<Base title="Evera – kongresy a konference, které dávají smysl" header="over" preloader onestoPage="Hlavní stránka">
   <!-- HERO -->
   <section class="xhero">
-    <img class="xhero-bg" src={m.eveHero} srcset={`/media/2023/06/DSC_0579-2-900.webp 900w, ${m.eveHero} 1920w`} sizes="100vw" alt="" width="1920" height="1280" fetchpriority="high" decoding="async" />
+    <img class="xhero-bg" data-edit="uvod.fotka" data-edit-type="image" data-edit-label="Úvod: velká fotka" src={m.eveHero} srcset={`/media/2023/06/DSC_0579-2-900.webp 900w, ${m.eveHero} 1920w`} sizes="100vw" alt="" width="1920" height="1280" fetchpriority="high" decoding="async" />
     <div class="wrap xhero-inner">
       <h1 class="xhero-title">
-        <span class="line"><span>Vaše téma.</span></span>
-        <span class="line"><span class="serif">Naše zkušenost.</span></span>
-        <span class="line"><span>Společný smysl.</span></span>
+        <span class="line"><span data-edit="uvod.radek1" data-edit-label="Úvod: nadpis, 1. řádek">Vaše téma.</span></span>
+        <span class="line"><span class="serif" data-edit="uvod.radek2" data-edit-label="Úvod: nadpis, 2. řádek (barevný)">Naše zkušenost.</span></span>
+        <span class="line"><span data-edit="uvod.radek3" data-edit-label="Úvod: nadpis, 3. řádek">Společný smysl.</span></span>
       </h1>
     </div>
   </section>
 
-  <!-- KONFERENCE 2027 – karty se na sebe skládají při scrollu -->
+  <!-- KONFERENCE 2027 – karty pod sebou -->
   <section class="konf" id="konference">
     <div class="wrap">
-      <h2 class="konf-title" data-title>Kam se chystáme <span class="serif">v roce 2027</span></h2>
-      <div class="stack">
-        <a class="stack-card" href="/setkani-v-pohybu/" style="--i:0">
-          <span class="sc-text">
-            <span class="p-tag">Gestalt Tábor 2027</span>
-            <span class="p-body">
-              <span class="p-kicker">8. konference gestalt psychoterapie</span>
-              <span class="p-title">Setkání v pohybu</span>
-              <span class="p-meta"><span>6.–9. května 2027</span><span>Tábor</span></span>
+      <h2 class="konf-title" data-title><span data-edit="konference.nadpis" data-edit-label="Konference: nadpis">Konference</span> <span class="serif" data-edit="konference.nadpis2" data-edit-label="Konference: nadpis, barevná část">2027</span></h2>
+      <!-- Karty konferencí: seznam v Onestu (klient přidává, mění a řadí konference). Vzorem je první karta. -->
+      <div class="stack" data-edit="konference.seznam" data-edit-type="list" data-edit-label="Konference: konference na hlavní stránce">
+        {conferences.map((c) => (
+          <article class="stack-card">
+            <span class="sc-text">
+              <span class="p-tag" data-edit-field="stitek" data-edit-label="Štítek (vlevo nahoře)">{c.tag}</span>
+              <span class="p-body">
+                <span class="p-kicker" data-edit-field="podtitul" data-edit-label="Text nad názvem">{c.kicker}</span>
+                <a class="p-title" href={c.href} data-edit-field="odkaz" data-edit-label="Název a kam karta vede">{c.title}</a>
+                <span class="p-meta"><span data-edit-field="kdy" data-edit-label="Kdy">{c.when}</span><span data-edit-field="kde" data-edit-label="Kde">{c.where}</span></span>
+              </span>
+              <span class="p-go" aria-hidden="true">→</span>
             </span>
-            <span class="p-go" aria-hidden="true">→</span>
-          </span>
-          <span class="sc-media p-setkani">
-            <span class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          </span>
-        </a>
-        <a class="stack-card" href="/kondept2/" style="--i:1">
-          <span class="sc-text">
-            <span class="p-tag">Kondept 2027</span>
-            <span class="p-body">
-              <span class="p-kicker">Metody – vztah – rodina – sebepéče</span>
-              <span class="p-title">2. česká konference dětské psychoterapie</span>
-              <span class="p-meta"><span>30. září – 2. října 2027</span><span>Kongres Hotel Jezerka, Seč</span></span>
+            <span class="sc-media">
+              <img src={c.img} alt="" loading="lazy" width="1200" height="669" data-edit-field="fotka" data-edit-label="Fotka" />
             </span>
-            <span class="p-go" aria-hidden="true">→</span>
-          </span>
-          <span class="sc-media p-kondept">
-            <img src={m.heroKondept} alt="" loading="lazy" width="1200" height="669" />
-          </span>
-        </a>
+          </article>
+        ))}
       </div>
+      <!-- proběhlé konference -->
+      <p class="konf-past" data-reveal>Proběhlo: <a href="/gestalt-lasky/">Gestalt lásky 2024, 7. konference gestalt psychoterapie <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
   <!-- O NÁS -->
   <section class="section" id="o-nas">
     <div class="wrap about">
       <div>
-        <h2 data-title>Kongresy a konference, které dávají smysl</h2>
+        <h2 data-title><span data-edit="onas.nadpis" data-edit-label="O nás: nadpis">Kongresy a konference, které dávají smysl</span></h2>
       </div>
       <div class="prose" data-reveal style="--i:1">
-        <p class="lede">Stojíme za prestižními českými i mezinárodními konferencemi a kongresy, kde se potkává špičkový obsah, precizní organizace a lidský přístup.</p>
+        <p class="lede" data-edit="onas.uvod" data-edit-label="O nás: úvodní odstavec (větší písmo)">Stojíme za prestižními českými i mezinárodními konferencemi a kongresy, kde se potkává špičkový obsah, precizní organizace a lidský přístup.</p>
+        <div data-edit="onas.text" data-edit-type="rich" data-edit-label="O nás: další odstavce">
         <p>Za dobu našeho působení jsme realizovali desítky konferencí – od komorních odborných setkání až po rozsáhlé mezinárodní kongresy. Spolupracujeme s významnými českými i zahraničními institucemi, profesními organizacemi, terapeuty, akademiky i neziskovým sektorem. Každou akci chápeme jako jedinečný živý organismus, který si zaslouží citlivý přístup, precizní organizaci a respekt k hodnotám oboru.</p>
         <p>Naší silnou stránkou je hluboké porozumění tématům psychologie a psychoterapie. Víme, že odborný obsah, bezpečný prostor a kvalitní lidské setkání jsou stejně důležité jako bezchybná logistika, technické zajištění a profesionální komunikace.</p>
         <p>Evera není jen organizační agentura. Jsme partnerem, který naslouchá, přemýšlí v souvislostech a pomáhá proměňovat vize v dobře fungující a smysluplné události.</p>
+        </div>
       </div>
     </div>
     <div class="wrap pillars">
-      <h2 class="pillars-title" data-title>Proč připravit konferenci s Everou</h2>
+      <h2 class="pillars-title" data-title><span data-edit="duvody.nadpis" data-edit-label="Proč s Everou: nadpis">Proč připravit konferenci s Everou</span></h2>
+      <div class="pillar-list" data-edit="duvody.seznam" data-edit-type="list" data-edit-label="Proč s Everou: důvody">
       {[
         ['Odborný obsah', 'Rozumíme oboru, ve kterém akce vzniká, a mluvíme řečí jeho lidí.'],
         ['Bezpečný prostor', 'Vytváříme prostředí, kde se lidé mohou skutečně potkat.'],
         ['Precizní organizace', 'Logistika, technika, registrace i komunikace pod jednou střechou.'],
       ].map(([t, d], i) => (
         <div class="pillar" data-reveal style={`--i:${i}`}>
-          <span class="num">0{i + 1}</span>
-          <h3>{t}</h3>
-          <p class="muted">{d}</p>
+          <span class="num" aria-hidden="true"></span>
+          <h3 data-edit-field="nazev" data-edit-label="Název">{t}</h3>
+          <p class="muted" data-edit-field="popis" data-edit-label="Popis">{d}</p>
         </div>
       ))}
+      </div>
     </div>
   </section>
 
@@ -100,16 +107,16 @@ const people = [
   <section class="section" id="kdo-jsme">
     <div class="wrap">
       <div data-reveal>
-        <h2 data-title>Kdo jsme</h2>
+        <h2 data-title><span data-edit="tym.nadpis" data-edit-label="Kdo jsme: nadpis">Kdo jsme</span></h2>
       </div>
-      <div class="grid grid-2">
+      <div class="grid grid-2" data-edit="tym.lide" data-edit-type="list" data-edit-label="Kdo jsme: lidé">
         {people.map((p, i) => (
           <article class="card person big" data-reveal style={`--i:${i}`}>
-            <span class="pimg"><img src={p.img} alt={p.name} loading="lazy" width="200" height="200" /></span>
+            <span class="pimg"><img src={p.img} alt={p.name} loading="lazy" width="200" height="200" data-edit-field="fotka" data-edit-label="Fotka" /></span>
             <div>
-              <h3>{p.name}</h3>
-              <p class="role">{p.role}, Evera Agency</p>
-              <p class="small muted">{p.bio}</p>
+              <h3 data-edit-field="jmeno" data-edit-label="Jméno">{p.name}</h3>
+              <p class="role" data-edit-field="funkce" data-edit-label="Funkce">{p.role}, Evera Agency</p>
+              <p class="small muted" data-edit-field="popis" data-edit-label="Krátký životopis">{p.bio}</p>
             </div>
           </article>
         ))}
@@ -121,8 +128,8 @@ const people = [
   <section class="section contact" id="kontakt">
     <div class="wrap">
       <div class="contact-head">
-        <h2 data-title>Pojďme spolu připravit vaši konferenci</h2>
-        <p class="muted" data-reveal>Ozvěte se nám – rádi se potkáme a probereme, co potřebujete.</p>
+        <h2 data-title><span data-edit="kontakt.nadpis" data-edit-label="Kontakt: nadpis">Pojďme spolu připravit vaši konferenci</span></h2>
+        <p class="muted" data-reveal data-edit="kontakt.text" data-edit-label="Kontakt: text pod nadpisem">Ozvěte se nám – rádi se potkáme a probereme, co potřebujete.</p>
       </div>
       <InquiryForm />
     </div>
@@ -131,7 +138,14 @@ const people = [
 
 <script>
   // Karty konferencí: spodní karta se při najíždění další jemně zmenší a ztmaví
-  const cards = [...document.querySelectorAll<HTMLElement>('.stack-card')];
+  // Živý seznam: Onesto může karty po načtení vyměnit nebo přidat
+  const cardList = () => [...document.querySelectorAll<HTMLElement>('.stack-card')];
+  // Celá karta funguje jako odkaz jejího názvu
+  document.addEventListener('click', (e) => {
+    const card = (e.target as HTMLElement).closest?.('.stack-card');
+    if (!card || (e.target as HTMLElement).closest('a')) return;
+    card.querySelector<HTMLAnchorElement>('a.p-title')?.click();
+  });
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v: number) => Math.min(1, Math.max(0, v));
   let ticking = false;
@@ -148,7 +162,8 @@ const people = [
         heroTitle.style.opacity = String(Math.max(0, 1 - y / (vh * 0.75)).toFixed(3));
       }
     }
-    const off = reduce || window.innerWidth <= 900;
+    const off = true; // karty už se nepřekrývají (stojí pod sebou)
+    const cards = cardList();
     for (let i = 0; i < cards.length - 1; i++) {
       const card = cards[i];
       if (off) { card.style.transform = ''; card.style.setProperty('--dim', '0'); continue; }
@@ -206,21 +221,32 @@ const people = [
   .konf-title { font-size: var(--fs-3xl); max-width: 14ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
   .konf-title .serif { color: #f4a68e; }
   .stack { display: block; }
+  .konf-past { margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; color: rgb(255 255 255 / 0.7); }
+  .konf-past a { color: #fff; text-decoration: none; font-weight: 600; }
+  .konf-past a:hover { color: #f4a68e; }
   .stack-card {
-    position: sticky; top: calc(var(--header-h) + 0.75rem + var(--i) * 1.25rem);
+    --i: 0; cursor: pointer;
+    position: relative;
     display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2rem);
-    height: min(66vh, 38rem); margin-bottom: 8vh; padding: clamp(1rem, 2vw, 1.75rem);
+    height: min(66vh, 38rem); margin-bottom: clamp(1.25rem, 3vw, 2rem); padding: clamp(1rem, 2vw, 1.75rem);
     background: var(--paper); color: var(--ink); text-decoration: none;
     transform-origin: 50% 0; will-change: transform;
   }
   .stack-card:last-child { margin-bottom: 0; }
+  .stack-card:nth-child(2) { --i: 1; }
+  .stack-card:nth-child(3) { --i: 2; }
+  .stack-card:nth-child(4) { --i: 3; }
+  .stack-card:nth-child(5) { --i: 4; }
+  .stack-card:nth-child(n + 6) { --i: 5; }
   .stack-card:hover { color: var(--ink); }
   .stack-card::after {
     content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
     background: var(--ink); opacity: calc(var(--dim, 0) * 0.35);
   }
   .sc-text { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(0.75rem, 1.5vw, 1.25rem); }
-  .sc-media { position: relative; overflow: hidden; isolation: isolate; }
+  .sc-media { position: relative; overflow: hidden; isolation: isolate; background: var(--ink); }
+  .sc-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .stack-card:hover .sc-media img { transform: scale(1.05); }
   .p-tag {
     align-self: flex-start; font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 0.4rem 0.8rem; border-radius: 999px; background: var(--paper-2);
@@ -230,7 +256,9 @@ const people = [
   .p-title {
     font-family: var(--font-display); font-weight: 300; line-height: 1.06; letter-spacing: -0.03em;
     font-size: clamp(2rem, 1rem + 2.4vw, 3.25rem); max-width: 16ch; margin-bottom: 1.4rem; text-wrap: balance;
+    color: inherit; text-decoration: none;
   }
+  .p-title:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
   .p-meta { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; font-size: 1rem; font-weight: 500; }
   .p-meta span + span { color: var(--ink-soft); }
   .p-go {
@@ -245,31 +273,15 @@ const people = [
     .sc-text { gap: 2rem; }
   }
 
-  /* Setkání v pohybu – kruhy v pohybu */
-  .p-setkani { background: #2532e6; }
-  .bubbles { position: absolute; inset: 0; z-index: -1; }
-  .bubbles i { position: absolute; border-radius: 50%; display: block; transition: transform 1.2s var(--ease); }
-  .bubbles i:nth-child(1) { width: 46%; aspect-ratio: 1; background: #ef3e36; right: -10%; top: -12%; animation: orbit 16s ease-in-out infinite; }
-  .bubbles i:nth-child(2) { width: 28%; aspect-ratio: 1; background: #9cc3f7; left: 18%; top: 38%; animation: orbit 12s ease-in-out -4s infinite reverse; }
-  .bubbles i:nth-child(3) { width: 8%; aspect-ratio: 1; background: #fff; left: 12%; top: 16%; animation: orbit 10s ease-in-out -2s infinite; }
-  .bubbles i:nth-child(4) { width: 22%; aspect-ratio: 1; right: 14%; bottom: 12%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(255,255,255,.08) 45%, rgba(255,255,255,.18) 70%, rgba(255,255,255,.45)); animation: orbit 18s ease-in-out -6s infinite; }
-  .bubbles i:nth-child(5) { width: 6%; aspect-ratio: 1; background: #ef3e36; left: 58%; top: 20%; animation: orbit 9s ease-in-out -1s infinite reverse; }
-  .stack-card:hover .bubbles i:nth-child(1) { transform: translate(-10%, 8%) scale(1.06); }
-  .stack-card:hover .bubbles i:nth-child(2) { transform: translate(12%, -8%); }
-  @keyframes orbit { 33% { translate: 4% -5%; } 66% { translate: -5% 3%; } }
-
-  /* Kondept – fotka */
-  .p-kondept { background: #d9661f; }
-  .p-kondept img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
-  .stack-card:hover .p-kondept img { transform: scale(1.05); }
-
   /* ===== O NÁS ===== */
   .about h2 { max-width: 22ch; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
   .about .prose { max-width: 46rem; }
-  .prose p { color: var(--ink-soft); font-size: var(--fs-base); max-width: none; }
+  .prose :global(p) { color: var(--ink-soft); font-size: var(--fs-base); max-width: none; }
   .pillars { margin-top: clamp(5rem, 10vw, 9rem); display: flex; flex-direction: column; gap: clamp(1.5rem, 3vw, 2.25rem); }
   .pillars-title { font-size: var(--fs-2xl); max-width: 22ch; margin: 0 0 clamp(0.5rem, 1.5vw, 1.25rem); }
-  .pillar { display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 1rem; align-items: baseline; }
+  .pillar-list { display: contents; counter-reset: pillar; }
+  .pillar { counter-increment: pillar; display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 1rem; align-items: baseline; }
+  .pillar .num::before { content: "0" counter(pillar); }
   .pillar .num { grid-row: span 2; font-family: var(--font-display); color: var(--accent); font-size: var(--fs-lg); }
   .pillar h3 { margin: 0 0 0.3rem; font-size: var(--fs-lg); }
   .pillar p { margin: 0; }

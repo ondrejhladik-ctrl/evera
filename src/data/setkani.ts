@@ -6,8 +6,14 @@ export const NAV = [
   { label: 'Registrace', href: '/setkani-v-pohybu/#registrace' },
   { label: 'Program', href: '/setkani-v-pohybu/#program' },
   { label: 'Informace', href: '/setkani-v-pohybu/#informace' },
+  { label: 'Partneři', href: '/setkani-v-pohybu/#partneri' },
   { label: 'O nás', href: '/setkani-v-pohybu/#o-nas' },
 ];
+
+// registrační aplikace Confea (uživatelská zóna, kde se účastníci registrují)
+export const EMAIL = 'info@setkanivpohybu.cz';
+
+export const REG_URL = 'https://gestalt.confea.net/cz/uzivatelska-zona';
 
 export const KEYNOTES = [
   {

@@ -1,0 +1,93 @@
+/*
+ * Setkání v pohybu (Gestalt Tábor 2027) – vizuál podle podkladů grafičky konference
+ * a registrační aplikace Confea: Oswald (nadpisy) + Merriweather (text), barvy konference,
+ * šedý podklad ve dvou odstínech. Načítá se jen na stránkách této konference.
+ */
+@import '@fontsource-variable/oswald';
+@import '@fontsource/merriweather/400.css';
+@import '@fontsource/merriweather/400-italic.css';
+@import '@fontsource/merriweather/700.css';
+@import '@fontsource/merriweather/900.css';
+
+html.theme-setkani {
+  --ink: #050a24;
+  --ink-soft: #3b4157;
+  --paper: #f4f4f6;
+  --paper-2: #e8e9ee;
+  --line: #d6d8e0;
+  --accent: #1733ff;
+  --accent-2: #ef3030;
+  --accent-3: #9cc7fa;
+  --accent-soft: #dceafd;
+  --font-display: 'Oswald Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Merriweather', Georgia, serif;
+  --fs-base: 1rem;
+  --fs-sm: 0.9375rem;
+  /* hlavička a patička */
+  --wrap: 68rem;
+  /* sloupec s obsahem – na užší obrazovce se roztáhne přes celou šířku */
+  --col: 52rem;
+}
+html.theme-setkani body { line-height: 1.75; font-feature-settings: normal; }
+html.theme-setkani strong { font-weight: 700; }
+
+/* obsah stránky v jednom sloupci uprostřed, bez prázdného místa vpravo */
+html.theme-setkani main .wrap { width: min(100% - 2 * var(--gutter), var(--col)); }
+html.theme-setkani main .wrap.wide { width: min(100% - 2 * var(--gutter), var(--wrap)); }
+html.theme-setkani main :is(.shead, .split > * + *, .lede) { max-width: none; }
+
+/* nadpisy: Oswald Bold, podnadpisy Merriweather Black */
+html.theme-setkani :is(h1, h2) { font-family: var(--font-display); font-weight: 700; letter-spacing: 0; line-height: 1.15; }
+html.theme-setkani h1 { font-size: clamp(2.2rem, 1.5rem + 3vw, 3.75rem); }
+html.theme-setkani h2 { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem); }
+html.theme-setkani main :is(h3, h4) { font-family: var(--font-body); font-weight: 900; letter-spacing: 0; font-size: 1.125rem; line-height: 1.4; }
+html.theme-setkani .kicker, html.theme-setkani .eyebrow { color: var(--ink-soft); }
+
+/* menu: užší Oswald, ať se položky vejdou */
+html.theme-setkani .menu li a:not(.btn) { font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; letter-spacing: 0.01em; }
+@media (min-width: 980px) { html.theme-setkani .menu ul, html.theme-setkani .menu.open ul { gap: 1.75rem; } }
+
+/* tlačítka jako v aplikaci Confea: červená, verzálky Oswald */
+html.theme-setkani .btn {
+  background: var(--accent-2); border-color: var(--accent-2); color: #fff; border-radius: 0;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.02em;
+  padding: 0.7rem 1.4rem;
+}
+html.theme-setkani .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+html.theme-setkani .btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+html.theme-setkani .btn.ghost:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* odrážky: barevné kulaté body */
+html.theme-setkani ul.bullets { list-style: none; padding: 0; }
+html.theme-setkani ul.bullets li { position: relative; padding-left: 1.75rem; margin-bottom: 0.65rem; }
+html.theme-setkani ul.bullets li::before {
+  content: ''; position: absolute; left: 0; top: 0.55em; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--accent);
+}
+html.theme-setkani ul.bullets li:nth-child(4n + 2)::before { background: var(--accent-2); }
+html.theme-setkani ul.bullets li:nth-child(4n + 3)::before { background: var(--accent-3); }
+
+html.theme-setkani details.fold > summary::after { color: var(--accent-2); }
+html.theme-setkani .site-footer { background: var(--ink); }
+
+/* ===== Bubliny – dekorace po stranách sloupce (grafický prvek konference) ===== */
+html.theme-setkani main .section { position: relative; overflow: clip; }
+.bubbles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+html.theme-setkani main .section > .wrap { position: relative; z-index: 1; }
+.bub { position: absolute; display: block; border-radius: 50%; animation: bub-float 14s ease-in-out infinite alternate; }
+.bub.blue { background: var(--accent); }
+.bub.red { background: var(--accent-2); }
+.bub.light { background: var(--accent-3); }
+.bub.white { background: #fff; }
+.bub.soap { border-radius: 0; object-fit: contain; opacity: 0.9; max-width: none; }
+.tint .bub.white { background: var(--paper); }
+@keyframes bub-float { from { transform: translate(0, 0); } to { transform: translate(0.75rem, -1.5rem); } }
+/* bubliny jen tam, kde je vedle sloupce volné místo */
+@media (max-width: 1250px) { .bubbles { display: none; } }
+@media (prefers-reduced-motion: reduce) { .bub { animation: none; } }
+
+/* menu se 7 položkami: logo se nesmí smrštit, na menších noteboocích menší mezery */
+html.theme-setkani .brand { flex: none; }
+@media (min-width: 980px) and (max-width: 1199px) {
+  html.theme-setkani .menu ul, html.theme-setkani .menu.open ul { gap: 1.1rem; }
+  html.theme-setkani .menu li a:not(.btn) { font-size: 1rem; }
+}
